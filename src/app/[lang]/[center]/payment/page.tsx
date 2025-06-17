@@ -2895,11 +2895,13 @@ export default function Index({ params }: any) {
                           
                             <div className="flex flex-row items-center justify-center gap-2">
                               {acceptingSellOrderRandom ? (
-                                <span className="text-sm text-zinc-500">
+                                <span className="text-sm text-zinc-800">
+                                  {/* 구매주문 중입니다. */}
                                   구매주문 중입니다.
                                 </span>
                               ) : (
-                                <span className="text-sm text-zinc-500
+                                <span className="text-sm text-zinc-800
+                                  hover:underline
                                   hover:text-zinc-50
                                   ">
                                   
