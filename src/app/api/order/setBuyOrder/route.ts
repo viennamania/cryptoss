@@ -87,12 +87,23 @@ export async function POST(request: NextRequest) {
       }),
     });
 
+
+
     if (!response.ok) {
-      const errorData = await response.json();
+      
+      console.error("Failed to insert buy order:", response.status, response.statusText);
+      console.error("Response body:", await response.text());
+
+      
+      //const errorData = await response.json();
+
+
       return NextResponse.json({
         result: null,
-        error: errorData.error || "Failed to insert buy order",
+        error: `Failed to insert buy order: ${response.status} ${response.statusText}`,
       }, { status: response.status });
+      
+
     }
 
     const result = await response.json();
@@ -112,7 +123,7 @@ export async function POST(request: NextRequest) {
       result: result.result,
     });
 
-    
+
   } catch (error) {
     console.error("Error in setBuyOrder:", error);
     return NextResponse.json({
