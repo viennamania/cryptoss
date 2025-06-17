@@ -1078,7 +1078,7 @@ export default function SettingsPage({ params }: any) {
                         connectModal={{
                             size: "wide", 
                             //size: "compact",
-                            titleIcon: "https://cryptopay.beauty/logo.png",                           
+                            titleIcon: "https://stable.makeup/logo.png",                           
                             showThirdwebBranding: false,
                         }}
 

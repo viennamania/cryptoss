@@ -292,7 +292,7 @@ const P2PTable = () => {
         body: JSON.stringify({
           name: tradeId,
           channel_url: orderId,
-          cover_url: 'https://gold.goodtether.com/icon-trade.png',
+          cover_url: 'https://stable.makeup/icon-trade.png',
           custom_type: 'trade',
 
         }),
@@ -775,9 +775,9 @@ const P2PTable = () => {
                         
                         appMetadata={
                         {
-                            logoUrl: "https://gold.goodtether.com/logo.png",
+                            logoUrl: "https://stable.makeup/logo.png",
                             name: "Next App",
-                            url: "https://gold.goodtether.com",
+                            url: "https://stable.makeup",
                             description: "This is a Next App.",
 
                         }

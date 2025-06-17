@@ -1884,7 +1884,7 @@ export default function Index({ params }: any) {
                         "storeUrl": "https://test.com",
                         "storeDescription": "설명입니다.",
                         "storeLogo": "https://vzrcy5vcsuuocnf3.public.blob.vercel-storage.com/5M8446y-TT1KF2HDXnBNi0ESO5gFaWcbjJAQHi.png",
-                        "storeBanner": "https://cryptopay.beauty/logo.png"
+                        "storeBanner": "https://stable.makeup/logo.png"
                     }
                 }
             },
@@ -2162,7 +2162,7 @@ const fetchBuyOrders = async () => {
                   connectModal={{
                     size: "wide", 
                     //size: "compact",
-                    titleIcon: "https://cryptopay.beauty/logo.png",                           
+                    titleIcon: "https://stable.makeup/logo.png",                           
                     showThirdwebBranding: false,
                   }}
   
@@ -3094,7 +3094,7 @@ const fetchBuyOrders = async () => {
                                       className="text-sm bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600"
                                       onClick={() => {
 
-                                        window.open(`https://gold.goodtether.com/${params.lang}/sell-usdt/${item._id}`, '_blank');
+                                        window.open(`https://stable.makeup/${params.lang}/sell-usdt/${item._id}`, '_blank');
 
                                       }}
                                     >
@@ -3230,11 +3230,11 @@ const fetchBuyOrders = async () => {
                                       className="ml-5 text-sm bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600"
                                       onClick={() => {
 
-                                        //window.open(`https://gold.goodtether.com/${params.lang}/storecode/sell-usdt/${item._id}`, '_blank');
+                                        //window.open(`https://stable.makeup/${params.lang}/storecode/sell-usdt/${item._id}`, '_blank');
 
                                         // copy to clipboard
 
-                                        navigator.clipboard.writeText(`https://gold.goodtether.com/${params.lang}/storecode/sell-usdt/${item._id}`);
+                                        navigator.clipboard.writeText(`https://stable.makeup/${params.lang}/storecode/sell-usdt/${item._id}`);
 
                                         toast.success('Link copied to clipboard');
 

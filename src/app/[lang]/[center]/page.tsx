@@ -162,8 +162,8 @@ export default function Index({ params }: any) {
       appMetadata: {
         name: "GoodTether",
         description: "GoodTether",
-        url: "https://gold.goodtether.com",
-        //icons: ["https://gold.goodtether.com/logo.png"],
+        url: "https://stable.makeup",
+        //icons: ["https://stable.makeup/logo.png"],
       },
       */
 
@@ -878,7 +878,7 @@ export default function Index({ params }: any) {
                       connectModal={{
                         size: "wide", 
                         //size: "compact",
-                        titleIcon: "https://cryptopay.beauty/logo.png",                           
+                        titleIcon: "https://stable.makeup/logo.png",                           
                         showThirdwebBranding: false,
                       }}
 
@@ -1156,7 +1156,7 @@ export default function Index({ params }: any) {
                     connectModal={{
                       size: "wide", 
                       //size: "compact",
-                      titleIcon: "https://cryptopay.beauty/logo.png",                           
+                      titleIcon: "https://stable.makeup/logo.png",                           
                       showThirdwebBranding: false,
                     }}
 

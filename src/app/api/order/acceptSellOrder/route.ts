@@ -95,11 +95,11 @@ export async function POST(request: NextRequest) {
       let msgBody2 = '';
 
       if (lang === 'en') { 
-        msgBody2 = `[GTETHER] TID[${tradeId}] Check the trade: https://gold.goodtether.com/${lang}/${chain}/sell-usdt/${orderId}`;
+        msgBody2 = `[GTETHER] TID[${tradeId}] Check the trade: https://stable.makeup/${lang}/${chain}/sell-usdt/${orderId}`;
       } else if (lang === 'kr') {
-        msgBody2 = `[GTETHER] TID[${tradeId}] 거래 확인: https://gold.goodtether.com/${lang}/${chain}/sell-usdt/${orderId}`;
+        msgBody2 = `[GTETHER] TID[${tradeId}] 거래 확인: https://stable.makeup/${lang}/${chain}/sell-usdt/${orderId}`;
       } else {
-        msgBody2 = `[GTETHER] TID[${tradeId}] Check the trade: https://gold.goodtether.com/${lang}/${chain}/sell-usdt/${orderId}`;
+        msgBody2 = `[GTETHER] TID[${tradeId}] Check the trade: https://stable.makeup/${lang}/${chain}/sell-usdt/${orderId}`;
       }
 
 

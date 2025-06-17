@@ -1569,9 +1569,9 @@ export default function Index({ params }: any) {
 
                         appMetadata={
                           {
-                            logoUrl: "https://gold.goodtether.com/logo.png",
+                            logoUrl: "https://stable.makeup/logo.png",
                             name: "Next App",
-                            url: "https://gold.goodtether.com",
+                            url: "https://stable.makeup",
                             description: "This is a Next App.",
 
                           }
@@ -3359,7 +3359,7 @@ export default function Index({ params }: any) {
                                       ////router.push(`/sell-usdt/${item._id}`);
 
                                       // copy to clipboard
-                                      navigator.clipboard.writeText(`https://gold.goodtether.com/${params.lang}/${params.center}/sell-usdt/${item._id}`);
+                                      navigator.clipboard.writeText(`https://stable.makeup/${params.lang}/${params.center}/sell-usdt/${item._id}`);
                                       toast.success('Link has been copied to clipboard');
 
                                     }}

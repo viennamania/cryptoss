@@ -1134,8 +1134,8 @@ export default function Index({ params }: any) {
     "storeType": "test",
     "storeUrl": "https://test.com",
     "storeDescription": "설명입니다.",
-    "storeLogo": "https://cryptopay.beauty/logo.png",
-    "storeBanner": "https://cryptopay.beauty/logo.png",
+    "storeLogo": "https://stable.makeup/logo.png",
+    "storeBanner": "https://stable.makeup/logo.png",
     "createdAt": "2025-05-06T04:36:44.683Z"
     "adminWalletAddress": "0x2111b6A49CbFf1C8Cc39d13250eF6bd4e1B59cF6",
   }
@@ -1326,7 +1326,7 @@ export default function Index({ params }: any) {
                 connectModal={{
                   size: "wide", 
                   //size: "compact",
-                  titleIcon: "https://cryptopay.beauty/logo.png",                           
+                  titleIcon: "https://stable.makeup/logo.png",                           
                   showThirdwebBranding: false,
                 }}
 
@@ -1392,14 +1392,14 @@ export default function Index({ params }: any) {
                 </div>
 
                 {/* link new window */}
-                {/* https://cryptopay.beauty/ko/[storecode] */}
+                {/* https://stable.makeup/ko/[storecode] */}
                 <button
                   onClick={() => {
-                    window.open(`https://cryptopay.beauty/ko/${store?.storecode}`, '_blank');
+                    window.open(`https://stable.makeup/ko/${store?.storecode}`, '_blank');
                   }}
                   className="text-sm text-zinc-500 underline"
                 >
-                  가맹점 링크: https://cryptopay.beauty/ko/{store?.storecode}
+                  가맹점 링크: https://stable.makeup/ko/{store?.storecode}
                 </button>
 
             </div>
@@ -1766,7 +1766,7 @@ export default function Index({ params }: any) {
 
                             <a
                               href={
-                                'https://cryptopay.beauty/' + params.lang + '/' + item.storecode + '/payment?'
+                                'https://stable.makeup/' + params.lang + '/' + item.storecode + '/payment?'
                                 + 'storeUser=' + item.nickname + '&depositBankName=' + item?.buyer?.depositBankName + '&depositName=' + item?.buyer?.depositName
                               }
                               target="_blank"

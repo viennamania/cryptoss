@@ -1244,8 +1244,8 @@ export default function Index({ params }: any) {
     "storeType": "test",
     "storeUrl": "https://test.com",
     "storeDescription": "설명입니다.",
-    "storeLogo": "https://cryptopay.beauty/logo.png",
-    "storeBanner": "https://cryptopay.beauty/logo.png",
+    "storeLogo": "https://stable.makeup/logo.png",
+    "storeBanner": "https://stable.makeup/logo.png",
     "createdAt": "2025-05-06T04:36:44.683Z"
     "adminWalletAddress": "0x2111b6A49CbFf1C8Cc39d13250eF6bd4e1B59cF6",
   }
@@ -1732,7 +1732,7 @@ export default function Index({ params }: any) {
               connectModal={{
                 size: "wide", 
                 //size: "compact",
-                titleIcon: "https://cryptopay.beauty/logo.png",                           
+                titleIcon: "https://stable.makeup/logo.png",                           
                 showThirdwebBranding: false,
               }}
 
@@ -2069,7 +2069,7 @@ export default function Index({ params }: any) {
                     connectModal={{
                       size: "wide", 
                       //size: "compact",
-                      titleIcon: "https://cryptopay.beauty/logo.png",                           
+                      titleIcon: "https://stable.makeup/logo.png",                           
                       showThirdwebBranding: false,
                     }}
 
@@ -2271,18 +2271,18 @@ export default function Index({ params }: any) {
                 </span>
                 <button
                   onClick={() => {
-                    window.open(`https://cryptopay.beauty/ko/${store?.storecode}/paymaster`, '_blank');
+                    window.open(`https://stable.makeup/ko/${store?.storecode}/paymaster`, '_blank');
                   }}
                   className="text-sm text-zinc-500 underline"
                 >
-                  https://cryptopay.beauty/ko/{store?.storecode}/paymaster
+                  https://stable.makeup/ko/{store?.storecode}/paymaster
                 </button>
               
               
                 {/* 복사 버튼 */}
                 <button
                   onClick={() => {
-                    navigator.clipboard.writeText(`https://cryptopay.beauty/ko/${store?.storecode}/paymaster`);
+                    navigator.clipboard.writeText(`https://stable.makeup/ko/${store?.storecode}/paymaster`);
                     toast.success('가맹점 홈페이지 링크가 복사되었습니다.');
                   } }
                   className="bg-[#3167b4] text-sm text-[#f3f4f6] px-2 py-1 rounded-lg hover:bg-[#3167b4]/80"
@@ -2784,7 +2784,7 @@ export default function Index({ params }: any) {
                       connectModal={{
                         size: "wide", 
                         //size: "compact",
-                        titleIcon: "https://cryptopay.beauty/logo.png",                           
+                        titleIcon: "https://stable.makeup/logo.png",                           
                         showThirdwebBranding: false,
                       }}
 
@@ -3229,11 +3229,11 @@ export default function Index({ params }: any) {
 /*
 selectedItem?.buyer?.depositBankName
 selectedItem?.buyer?.depositName
-'https://cryptopay.beauty/' + params.lang + '/' + selectedItem.storecode + '/payment?'
+'https://stable.makeup/' + params.lang + '/' + selectedItem.storecode + '/payment?'
 'storeUser=' + selectedItem.nickname + '&depositBankName=' + selectedItem?.buyer?.depositBankName + '&depositName=' + selectedItem?.buyer?.depositName
 
 
-'https://cryptopay.beauty/' + params.lang + '/' + item.storecode + '/payment?'
+'https://stable.makeup/' + params.lang + '/' + item.storecode + '/payment?'
                                     + 'storeUser=' + item.nickname + '&depositBankName=' + item?.buyer?.depositBankName + '&depositName=' + item?.buyer?.depositName
 */
 
@@ -3252,7 +3252,7 @@ const UserHomePage = (
       
       {/* iframe */}
       <iframe
-        src={`https://cryptopay.beauty/kr/${selectedItem?.storecode}/payment?`
+        src={`https://stable.makeup/kr/${selectedItem?.storecode}/payment?`
           + 'storeUser=' + selectedItem?.nickname
           + '&depositBankName=' + selectedItem?.buyer?.depositBankName
           + '&depositBankAccountNumber=' + selectedItem?.buyer?.depositBankAccountNumber

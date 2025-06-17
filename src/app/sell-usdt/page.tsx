@@ -534,9 +534,9 @@ const P2PTable = () => {
                             
                             appMetadata={
                             {
-                                logoUrl: "https://gold.goodtether.com/logo.png",
+                                logoUrl: "https://stable.makeup/logo.png",
                                 name: "Next App",
-                                url: "https://gold.goodtether.com",
+                                url: "https://stable.makeup",
                                 description: "This is a Next App.",
 
                             }
@@ -1468,7 +1468,7 @@ const P2PTable = () => {
                                       ////router.push(`/sell-usdt/${item._id}`);
 
                                       // copy to clipboard
-                                      navigator.clipboard.writeText(`https://gold.goodtether.com/en/sell-usdt/${item._id}`);
+                                      navigator.clipboard.writeText(`https://stable.makeup/en/sell-usdt/${item._id}`);
                                       toast.success('Link has been copied to clipboard');
 
                                     }}

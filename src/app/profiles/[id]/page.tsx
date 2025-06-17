@@ -406,9 +406,9 @@ export default function ProfilePage() {
                             
                             appMetadata={
                             {
-                                logoUrl: "https://gold.goodtether.com/logo.png",
+                                logoUrl: "https://stable.makeup/logo.png",
                                 name: "Next App",
-                                url: "https://gold.goodtether.com",
+                                url: "https://stable.makeup",
                                 description: "This is a Next App.",
 
                             }

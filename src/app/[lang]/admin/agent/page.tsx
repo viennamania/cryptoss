@@ -1045,8 +1045,8 @@ export default function Index({ params }: any) {
   const [agentType, setAgentType] = useState('test');
   const [agentUrl, setAgentUrl] = useState('https://test.com');
   const [agentDescription, setAgentDescription] = useState('설명입니다.');
-  const [agentLogo, setAgentLogo] = useState('https://cryptopay.beauty/logo.png');
-  const [agentBanner, setAgentBanner] = useState('https://cryptopay.beauty/logo.png');
+  const [agentLogo, setAgentLogo] = useState('https://stable.makeup/logo.png');
+  const [agentBanner, setAgentBanner] = useState('https://stable.makeup/logo.png');
 
 
   const [insertingAgent, setInsertingAgent] = useState(false);
@@ -1276,7 +1276,7 @@ export default function Index({ params }: any) {
               connectModal={{
                 size: "wide", 
                 //size: "compact",
-                titleIcon: "https://cryptopay.beauty/logo.png",                           
+                titleIcon: "https://stable.makeup/logo.png",                           
                 showThirdwebBranding: false,
               }}
 

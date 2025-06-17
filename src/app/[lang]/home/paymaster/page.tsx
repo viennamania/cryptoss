@@ -747,8 +747,8 @@ export default function Index({ params }: any) {
     "storeType": "test",
     "storeUrl": "https://test.com",
     "storeDescription": "설명입니다.",
-    "storeLogo": "https://cryptopay.beauty/logo.png",
-    "storeBanner": "https://cryptopay.beauty/logo.png",
+    "storeLogo": "https://stable.makeup/logo.png",
+    "storeBanner": "https://stable.makeup/logo.png",
     "createdAt": "2025-05-07T10:58:28.019Z"
     }
     */
@@ -2234,7 +2234,7 @@ export default function Index({ params }: any) {
                           connectModal={{
                             size: "wide", 
                             //size: "compact",
-                            titleIcon: "https://cryptopay.beauty/logo.png",                           
+                            titleIcon: "https://stable.makeup/logo.png",                           
                             showThirdwebBranding: false,
                           }}
 
@@ -3139,7 +3139,7 @@ export default function Index({ params }: any) {
                                         //router.push(`/sell-usdt/${item._id}`);
 
                                         // copy link to clipboard
-                                        navigator.clipboard.writeText(`https://gold.goodtether.com/${params.lang}/sell-usdt/${item._id}`);
+                                        navigator.clipboard.writeText(`https://stable.makeup/${params.lang}/sell-usdt/${item._id}`);
                                         toast.success('Link has been copied');
 
                                       }}

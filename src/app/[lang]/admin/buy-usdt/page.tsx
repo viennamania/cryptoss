@@ -1475,7 +1475,7 @@ export default function Index({ params }: any) {
                   connectModal={{
                     size: "wide", 
                     //size: "compact",
-                    titleIcon: "https://cryptopay.beauty/logo.png",                           
+                    titleIcon: "https://stable.makeup/logo.png",                           
                     showThirdwebBranding: false,
                   }}
 
@@ -3068,7 +3068,7 @@ export default function Index({ params }: any) {
                                       ////router.push(`/sell-usdt/${item._id}`);
 
                                       // copy to clipboard
-                                      navigator.clipboard.writeText(`https://gold.goodtether.com/${params.lang}/${params.center}/sell-usdt/${item._id}`);
+                                      navigator.clipboard.writeText(`https://stable.makeup/${params.lang}/${params.center}/sell-usdt/${item._id}`);
                                       toast.success('Link has been copied to clipboard');
 
                                     }}
