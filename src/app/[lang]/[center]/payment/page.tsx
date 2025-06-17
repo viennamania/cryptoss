@@ -2904,7 +2904,6 @@ export default function Index({ params }: any) {
                                   hover:underline
                                   hover:text-zinc-50
                                   ">
-                                  
                                   구매하기
                                 </span>
                               )}
