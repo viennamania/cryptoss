@@ -2239,7 +2239,7 @@ const fetchBuyOrders = async () => {
 
     return (
 
-      <main className="p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-2xl mx-auto">
+      <main className="p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-xl mx-auto">
 
 
         <div className="py-0 w-full">

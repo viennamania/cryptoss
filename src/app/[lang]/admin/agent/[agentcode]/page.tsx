@@ -1358,7 +1358,7 @@ export default function Index({ params }: any) {
   // if loadinAgent is true, show loading
   if (fetchingAgent) {
     return (
-      <main className="w-full p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-2xl mx-auto">
+      <main className="w-full p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-xl mx-auto">
         <div className="py-0 w-full">
           <div className="flex flex-col items-center justify-center gap-4">
             <Image
@@ -1380,7 +1380,7 @@ export default function Index({ params }: any) {
 
   if (!fetchingAgent && !agent) {
     return (
-      <main className="w-full p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-2xl mx-auto">
+      <main className="w-full p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-xl mx-auto">
         <div className="py-0 w-full">
           
           
@@ -1483,7 +1483,7 @@ export default function Index({ params }: any) {
 
   if (!address) {
     return (
-   <main className="p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-2xl mx-auto">
+   <main className="p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-xl mx-auto">
 
 
       <div className="py-0 w-full">
@@ -1813,7 +1813,7 @@ export default function Index({ params }: any) {
 
   return (
 
-    <main className="p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-2xl mx-auto">
+    <main className="p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-xl mx-auto">
 
 
       <div className="py-0 w-full">

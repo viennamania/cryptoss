@@ -184,7 +184,7 @@ export default function Index({ params }: any) {
 
   // limit, page number params
 
-  const limit = searchParams.get('limit') || 20;
+  const limit = searchParams.get('limit') || 10;
   const page = searchParams.get('page') || 1;
 
 
@@ -821,10 +821,47 @@ export default function Index({ params }: any) {
 
 
   // limit number
-  const [limitValue, setLimitValue] = useState(limit || 20);
+  const [limitValue, setLimitValue] = useState(limit || 10);
+  useEffect(() => {
+    setLimitValue(limit || 20);
+  }, [limit]);
 
   // page number
   const [pageValue, setPageValue] = useState(page || 1);
+  useEffect(() => {
+    setPageValue(page || 1);
+  }, [page]);
+
+
+
+
+
+
+  
+  // search form date to date
+  const [searchFromDate, setSearchFormDate] = useState("");
+  // set today's date in YYYY-MM-DD format
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0]; // YYYY-MM-DD format
+    setSearchFormDate(formattedDate);
+  }, []);
+
+
+
+
+  const [searchToDate, setSearchToDate] = useState("");
+
+  // set today's date in YYYY-MM-DD format
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0]; // YYYY-MM-DD format
+    setSearchToDate(formattedDate);
+  }, []);
+
+
+
+
 
 
 
@@ -2347,82 +2384,112 @@ const fetchBuyOrders = async () => {
 
 
 
-    const [storeTrades, setStoreTrades] = useState<{
-      totalCount: number;
-      totalKrwAmount: number;
-      totalUsdtAmount: number;
-      totalSettlementCount: number;
-      totalSettlementAmount: number;
-      totalSettlementAmountKRW: number;
-      latestTrades: any[];
-    }>({
+  const [tradeSummary, setTradeSummary] = useState({
       totalCount: 0,
       totalKrwAmount: 0,
       totalUsdtAmount: 0,
       totalSettlementCount: 0,
       totalSettlementAmount: 0,
       totalSettlementAmountKRW: 0,
-      latestTrades: [],
+      totalFeeAmount: 0,
+      totalFeeAmountKRW: 0,
+      totalAgentFeeAmount: 0,
+      totalAgentFeeAmountKRW: 0,
+      orders: [] as BuyOrder[],
+
+      totalClearanceCount: 0,
+      totalClearanceAmount: 0,
+      totalClearanceAmountUSDT: 0,
     });
-
-    const [fetchingStoreTrades, setFetchingStoreTrades] = useState(false);
-  
-    const fetchStoreSummary = async () => {
-      if (!address) {
-        return;
-      }
-
-      if (fetchingStoreTrades) {
-        return;
-      }
-
-      setFetchingStoreTrades(true);
+    const [loadingTradeSummary, setLoadingTradeSummary] = useState(false);
 
 
-      const response = await fetch('/api/summary/getStoreTrades', {
+    const getTradeSummary = async () => {
+
+
+      setLoadingTradeSummary(true);
+      const response = await fetch('/api/summary/getTradeSummary', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(
-          {
-            storecode: "",
-          }
-        ),
+        body: JSON.stringify({
+          /*
+          storecode: params.storecode,
+          walletAddress: address,
+          searchMyOrders: searchMyOrders,
+          searchOrderStatusCompleted: true,
+          //searchBuyer: searchBuyer,
+          //searchDepositName: searchDepositName,
+
+          //searchStoreBankAccountNumber: searchStoreBankAccountNumber,
+
+          */
+
+          agentcode: params.agentcode,
+          storecode: searchStorecode,
+          walletAddress: address,
+          searchMyOrders: searchMyOrders,
+          searchOrderStatusCompleted: true,
+          
+          //searchBuyer: searchBuyer,
+          searchBuyer: '',
+          //searchDepositName: searchDepositName,
+          searchDepositName: '',
+          //searchStoreBankAccountNumber: searchStoreBankAccountNumber,
+          searchStoreBankAccountNumber: '',
+
+
+
+          fromDate: searchFromDate,
+          toDate: searchToDate,
+
+
+
+        })
       });
       if (!response.ok) {
-
-        setFetchingStoreTrades(false);
+        setLoadingTradeSummary(false);
+        toast.error('Failed to fetch trade summary');
         return;
       }
       const data = await response.json();
       
-      console.log('getStoreSummary data', data);
-  
-      setStoreTrades(data.result);
+      console.log('getTradeSummary data', data);
 
-      setFetchingStoreTrades(false);
-  
+
+      setTradeSummary(data.result);
+      setLoadingTradeSummary(false);
+      return data.result;
     }
-  
-  
+
+
+
+
     useEffect(() => {
-      if (!address) {
+
+      if (!searchFromDate || !searchToDate) {
         return;
       }
-      fetchStoreSummary();
-      // interval
+
+      getTradeSummary();
+
+      // fetch trade summary every 10 seconds
       const interval = setInterval(() => {
-        fetchStoreSummary();
-      } , 10000);
+        getTradeSummary();
+      }, 10000);
       return () => clearInterval(interval);
-    } , [address]);
-  
+
+
+    } , [searchMyOrders, searchStorecode,
+      searchFromDate, searchToDate,
+    ]);
+
 
 
     return (
 
-      <main className="p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-2xl mx-auto">
+      <main className="p-4 pb-10 min-h-[100vh] flex items-start justify-center container max-w-screen-xl mx-auto">
 
 
         <div className="py-0 w-full">
@@ -2717,53 +2784,6 @@ const fetchBuyOrders = async () => {
                 </div>
 
 
-                <div className="w-full flex flex-row items-center justify-end gap-2">
-
-                  {/*
-                  <div className="flex flex-col gap-2 items-center">
-                    <div className="text-sm">{Total}</div>
-                    <div className="text-xl font-semibold text-zinc-500">
-                      {buyOrders.length} 
-                    </div>
-                  </div>
-                  */}
-
-
-
-                  {/*}
-                  <div className="flex flex-col gap-2 items-center">
-                    <div className="text-sm">
-                      {Buy_Order_Accept}
-                    </div>
-                    <div className="text-xl font-semibold text-white">
-                      {buyOrders.filter((item) => item.status === 'accepted').length}
-                    </div>
-                  </div>
-                  */}
-
-                  <div className="flex flex-col gap-2 items-center">
-                    <div className="text-sm">거래중</div>
-                    <div className="text-xl font-semibold text-zinc-500">
-
-                      {
-                        buyOrders.filter((item) => item.status === 'accepted' || item.status === 'paymentRequested').length
-
-                      }
-
-                    </div>
-                  </div>
-
-                  {/* buy order status */}
-                  <div className="flex flex-col gap-2 items-center">
-                    <div className="text-sm">전체</div>
-                    <div className="text-xl font-semibold text-zinc-500">
-                      {totalCount}
-                    </div>
-                  </div>
-
-                </div>
-
-
 
                 <div className="w-full flex flex-col xl:flex-row items-center justify-between gap-5">
 
@@ -2857,82 +2877,33 @@ const fetchBuyOrders = async () => {
 
                   {true && (
                     <div className="flex flex-col xl:flex-row items-center justify-center gap-2
-                    w-full xl:w-1/2
+                    w-full xl:w-1/3
                     border border-zinc-800 rounded-lg p-2 bg-zinc-100">
-
-
-
                       
-                      <div className="hidden flex-row items-center justify-center gap-2">
-                        <Image
-                          src="/loading.png"
-                          alt="Loading"
-                          width={20}
-                          height={20}
-                          className={` ${
-                            fetchingStoreTrades ? 'animate-spin' : ''}
-                            w-6 h-6
-                          `}
-                        />
-                      </div>
-                      
-
 
 
                       {/* 총 거래수 */}
 
-                      <div className="w-full flex flex-row items-center justify-center gap-2">
+                      <div className="w-full flex flex-row items-center justify-between gap-2">
 
                         <div className="flex flex-col items-center justify-center gap-2">
                           <h2 className="text-lg">총 거래수</h2>
                           <p className="text-lg text-zinc-500">
                             {
-                              storeTrades.totalCount
+                              tradeSummary.totalCount
                             } 건
                           </p>
                         </div>
                         <div className="flex flex-col items-center justify-center gap-2">
                           <h2 className="text-lg">총 거래금액</h2>
                           <p className="text-lg text-zinc-500">
-                            {Number(storeTrades.totalKrwAmount)?.toLocaleString()} 원
+                            {Number(tradeSummary.totalKrwAmount)?.toLocaleString()} 원
                           </p>
                         </div>
                         <div className="flex flex-col items-center justify-center gap-2">
                           <h2 className="text-lg">총 거래량</h2>
                           <p className="text-lg text-zinc-500">
-                            {Number(storeTrades.totalUsdtAmount)?.toLocaleString()} USDT
-                          </p>
-                        </div>
-
-                      </div>
-
-                      {/* divider */}
-                      <div className="xl:hidden w-full h-0.5 bg-zinc-200 my-2" />
-
-                      {/* 총 정산수, 총 정산금액, 총 정산량 */}
-
-                      <div className="w-full flex flex-row items-between justify-center gap-2">
-
-                        {/* 총 정산수 */}
-                        <div className="flex flex-col items-center justify-center gap-2">
-                          <h2 className="text-lg">총 정산수</h2>
-                          <p className="text-lg text-zinc-500">
-                            {storeTrades?.totalSettlementCount} 건
-                          </p>
-                        </div>
-                        {/* 총 정산금액 */}
-                        <div className="flex flex-col items-center justify-center gap-2">
-                          <h2 className="text-lg">총 정산금액</h2>
-                          <p className="text-lg text-zinc-500">
-                            {Number(storeTrades?.totalSettlementAmountKRW)?.toLocaleString()} 원
-                          </p>
-                        </div>
-
-                        {/* 총 정산량 */}
-                        <div className="flex flex-col items-center justify-center gap-2">
-                          <h2 className="text-lg">총 정산량</h2>
-                          <p className="text-lg text-zinc-500">
-                            {Number(storeTrades?.totalSettlementAmount)?.toLocaleString()} USDT
+                            {Number(tradeSummary.totalUsdtAmount)?.toLocaleString()} USDT
                           </p>
                         </div>
 
@@ -5667,22 +5638,35 @@ const fetchBuyOrders = async () => {
 
 
               <div className="flex flex-row items-center gap-2">
-                  <select
-                    value={limit}
-                    onChange={(e) =>
-                      
-                      router.push(`/${params.lang}/home/buyorder?limit=${Number(e.target.value)}&page=${page}`)
+                <select
+                  value={limit}
+                  onChange={(e) =>
+                    
+                    router.push(`/${params.lang}/home/buyorder?limit=${Number(e.target.value)}&page=${page}`)
 
-                    }
+                  }
 
-                    className="text-sm bg-zinc-800 text-zinc-200 px-2 py-1 rounded-md"
-                  >
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                    <option value={50}>50</option>
-                    <option value={100}>100</option>
-                  </select>
-                </div>
+                  className="text-sm bg-zinc-800 text-zinc-200 px-2 py-1 rounded-md"
+                >
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                  <option value={50}>50</option>
+                  <option value={100}>100</option>
+                </select>
+              </div>
+
+              {/* 처음으로 */}
+              <button
+                disabled={Number(page) <= 1}
+                className={`text-sm text-white px-4 py-2 rounded-md ${Number(page) <= 1 ? 'bg-gray-500' : 'bg-green-500 hover:bg-green-600'}`}
+                onClick={() => {
+                  
+                  router.push(`/${params.lang}/home?limit=${Number(limit)}&page=1`);
+
+                }}
+              >
+                처음으로
+              </button>
 
 
               <button
@@ -5690,7 +5674,7 @@ const fetchBuyOrders = async () => {
                 className={`text-sm text-white px-4 py-2 rounded-md ${Number(page) <= 1 ? 'bg-gray-500' : 'bg-green-500 hover:bg-green-600'}`}
                 onClick={() => {
                   
-                  router.push(`/${params.lang}/home/buyorder?limit=${Number(limit)}&page=${Number(page) - 1}`);
+                  router.push(`/${params.lang}/home?limit=${Number(limit)}&page=${Number(page) - 1}`);
 
                 }}
               >
@@ -5708,11 +5692,24 @@ const fetchBuyOrders = async () => {
                 className={`text-sm text-white px-4 py-2 rounded-md ${Number(page) >= Math.ceil(Number(totalCount) / Number(limit)) ? 'bg-gray-500' : 'bg-green-500 hover:bg-green-600'}`}
                 onClick={() => {
                   
-                  router.push(`/${params.lang}/home/buyorder?limit=${Number(limit)}&page=${Number(page) + 1}`);
+                  router.push(`/${params.lang}/home?limit=${Number(limit)}&page=${Number(page) + 1}`);
 
                 }}
               >
                 다음
+              </button>
+
+              {/* 마지막으로 */}
+              <button
+                disabled={Number(page) >= Math.ceil(Number(totalCount) / Number(limit))}
+                className={`text-sm text-white px-4 py-2 rounded-md ${Number(page) >= Math.ceil(Number(totalCount) / Number(limit)) ? 'bg-gray-500' : 'bg-green-500 hover:bg-green-600'}`}
+                onClick={() => {
+                  
+                  router.push(`/${params.lang}/home?limit=${Number(limit)}&page=${Math.ceil(Number(totalCount) / Number(limit))}`);
+
+                }}
+              >
+                마지막으로
               </button>
 
             </div>
