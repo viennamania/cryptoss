@@ -2715,11 +2715,13 @@ const fetchBuyOrders = async () => {
 
                   <button
                     onClick={() => {
-                      //router.push('/' + params.lang + '/home/paymaster');
+                      router.push('/' + params.lang + '/home/paymaster');
+                      /*
                       window.open(
                         '/'+ params.lang + '/home/paymaster',
                         '_blank'
                       );
+                      */
                     }}
                     className="bg-yellow-500 text-sm text-[#f3f4f6] px-4 py-2 rounded-lg hover:bg-yellow-400"
                   >

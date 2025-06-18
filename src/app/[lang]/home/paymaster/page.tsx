@@ -1920,7 +1920,7 @@ export default function Index({ params }: any) {
     <main className="
       pl-2 pr-2
       pb-10 min-h-[100vh] flex flex-col items-center justify-start container
-      max-w-screen-lg
+      max-w-screen-xl
       mx-auto
       bg-zinc-50
       text-zinc-500
@@ -1955,6 +1955,30 @@ export default function Index({ params }: any) {
           </div>
         ) : (
           <div className="w-full flex flex-row items-center justify-between gap-2">
+
+
+            {/* go back button */}
+            <div className="flex justify-start items-center gap-2">
+                <button
+                    onClick={() => window.history.back()}
+                    className="flex items-center justify-center bg-gray-200 rounded-full p-2">
+                    <Image
+                        src="/icon-back.png"
+                        alt="Back"
+                        width={20}
+                        height={20}
+                        className="rounded-full"
+                    />
+                </button>
+                {/* title */}
+                <span className="text-sm text-gray-500 font-semibold">
+                    돌아가기
+                </span>
+            </div>
+
+
+
+
 
             <div className='flex flex-col xl:flex-row gap-2 items-center justify-start'>
               <Image
