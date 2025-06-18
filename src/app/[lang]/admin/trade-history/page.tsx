@@ -2291,7 +2291,7 @@ const fetchBuyOrders = async () => {
 
              >
                <Image
-                 src="/logo-oneclick.png"
+                 src="/cryptoss.webp"
                  alt="logo"
                  width={100}
                  height={100}
