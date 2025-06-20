@@ -5644,7 +5644,7 @@ const fetchBuyOrders = async () => {
                   value={limit}
                   onChange={(e) =>
                     
-                    router.push(`/${params.lang}/home/buyorder?limit=${Number(e.target.value)}&page=${page}`)
+                    router.push(`/${params.lang}/home?limit=${Number(e.target.value)}&page=${page}`)
 
                   }
 
