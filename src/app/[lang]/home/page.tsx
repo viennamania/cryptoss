@@ -582,158 +582,6 @@ export default function Index({ params }: any) {
 
 
 
-
-
-  const [escrowWalletAddress, setEscrowWalletAddress] = useState('');
-  const [makeingEscrowWallet, setMakeingEscrowWallet] = useState(false);
-
-  const makeEscrowWallet = async () => {
-      
-    if (!address) {
-      toast.error('Please connect your wallet');
-      return;
-    }
-
-
-    setMakeingEscrowWallet(true);
-
-    fetch('/api/order/getEscrowWalletAddress', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        lang: params.lang,
-        storecode: "admin",
-        walletAddress: address,
-        //isSmartAccount: activeWallet === inAppConnectWallet ? false : true,
-        isSmartAccount: false,
-      }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        
-        //console.log('getEscrowWalletAddress data.result', data.result);
-
-
-        if (data.result) {
-          setEscrowWalletAddress(data.result.escrowWalletAddress);
-          toast.success(Escrow_Wallet_Address_has_been_created);
-        } else {
-          toast.error(Failed_to_create_Escrow_Wallet_Address);
-        }
-    })
-    .finally(() => {
-      setMakeingEscrowWallet(false);
-    });
-
-  }
-
-  //console.log("escrowWalletAddress", escrowWalletAddress);
-
-
-
-
-  // get escrow wallet address and balance
-  
-  const [escrowBalance, setEscrowBalance] = useState(0);
-  const [escrowNativeBalance, setEscrowNativeBalance] = useState(0);
-
-  
-  useEffect(() => {
-
-    const getEscrowBalance = async () => {
-
-      if (!address) {
-        setEscrowBalance(0);
-        return;
-      }
-
-      if (!escrowWalletAddress || escrowWalletAddress === '') return;
-
-
-      
-      const result = await balanceOf({
-        contract,
-        address: escrowWalletAddress,
-      });
-
-      //console.log('escrowWalletAddress balance', result);
-
-  
-      setEscrowBalance( Number(result) / 10 ** 6 );
-            
-
-
-      /*
-      await fetch('/api/user/getUSDTBalanceByWalletAddress', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          storecode: "admin",
-          walletAddress: escrowWalletAddress,
-        }),
-      })
-      .then(response => response?.json())
-      .then(data => {
-
-        console.log('getUSDTBalanceByWalletAddress data.result.displayValue', data.result?.displayValue);
-
-        setEscrowBalance(data.result?.displayValue);
-
-      } );
-       */
-
-
-
-
-      await fetch('/api/user/getBalanceByWalletAddress', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          storecode: "admin",
-          walletAddress: escrowWalletAddress,
-        }),
-      })
-      .then(response => response?.json())
-      .then(data => {
-
-
-        ///console.log('getBalanceByWalletAddress data', data);
-
-
-        setEscrowNativeBalance(data.result?.displayValue);
-
-      });
-      
-
-
-
-    };
-
-    getEscrowBalance();
-
-    const interval = setInterval(() => {
-      getEscrowBalance();
-    } , 1000);
-
-    return () => clearInterval(interval);
-
-  } , [address, escrowWalletAddress, contract, "admin"]);
-  
-
-  //console.log('escrowBalance', escrowBalance);
-
-
-
-
-
-
-
   
 
   // get User by wallet address
@@ -769,8 +617,6 @@ export default function Index({ params }: any) {
 
 
         setUser(data.result);
-
-        setEscrowWalletAddress(data.result.escrowWalletAddress);
 
         setIsAdmin(data.result?.role === "admin");
 
@@ -943,13 +789,6 @@ export default function Index({ params }: any) {
             toast.error('Please connect your wallet');
             return;
         }
-
-        /*
-        if (!escrowWalletAddress || escrowWalletAddress === '') {
-          toast.error('에스크로 지갑이 없습니다.');
-          return;
-        }
-        */
 
         setAcceptingBuyOrder (
           acceptingBuyOrder.map((item, idx) => idx === index ? true : item)
@@ -1243,14 +1082,6 @@ export default function Index({ params }: any) {
       storecode: string,
     ) => {
 
-
-      // check escrowWalletAddress
-
-      if (!isWithoutEscrow && escrowWalletAddress === '') {
-        toast.error('Recipient wallet address is empty');
-        return;
-      }
-
       // check balance
       // send payment request
 
@@ -1285,7 +1116,7 @@ export default function Index({ params }: any) {
     
 
    
-
+        /*
 
         // send USDT
         // Call the extension function to prepare the transaction
@@ -1300,15 +1131,6 @@ export default function Index({ params }: any) {
         try {
 
 
-          /*
-          const transactionResult = await sendAndConfirmTransaction({
-              account: smartAccount as any,
-              transaction: transaction,
-          });
-
-          //console.log("transactionResult===", transactionResult);
-          */
-
           const { transactionHash } = await sendTransaction({
             
             account: activeAccount as any,
@@ -1316,21 +1138,7 @@ export default function Index({ params }: any) {
             transaction,
           });
 
-          ///console.log("transactionHash===", transactionHash);
-
-
-          /*
-          const transactionResult = await waitForReceipt({
-            client,
-            chain: params.center === "arbitrum" ? arbitrum : polygon,
-            maxBlocksWaitTime: 1,
-            transactionHash: transactionHash,
-          });
-
-
-          console.log("transactionResult===", transactionResult);
-          */
-    
+ 
 
           // send payment request
 
@@ -1362,21 +1170,6 @@ export default function Index({ params }: any) {
             });
 
             const data = await response.json();
-
-            //console.log('/api/order/buyOrderRequestPayment data====', data);
-
-
-            /*
-            setRequestingPayment(
-              requestingPayment.map((item, idx) => {
-                if (idx === index) {
-                  return false;
-                }
-                return item;
-              })
-            );
-            */
-            
 
 
             if (data.result) {
@@ -1442,6 +1235,8 @@ export default function Index({ params }: any) {
 
           toast.error('Payment request has been failed');
         }
+        */
+
 
         setEscrowing(
           escrowing.map((item, idx) =>  idx === index ? false : item)

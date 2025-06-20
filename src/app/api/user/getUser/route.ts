@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import {
-	getOneByWalletAddress,
+	///getOneByWalletAddress,
 } from '@lib/api/user';
 
 
@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
   } = body;
 
 
+  /*
   console.log("getUser storecode", storecode);
   console.log("getUser walletAddress", walletAddress);
 
@@ -32,5 +33,34 @@ export async function POST(request: NextRequest) {
     result,
     
   });
+  */
+
+
+  // call api
+  // https://stable.makeup/api/user/getUser
+
+  const apiUrl = `https://stable.makeup/api/user/getUser`;
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        storecode,
+        walletAddress
+      }),
+    });
+    const data = await response.json();
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return NextResponse.json({ error: "Failed to fetch user data" }, { status: 500 });
+  }
+
+
+
+
   
 }

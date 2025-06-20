@@ -1,9 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+/*
 import {
 	getBuyOrders,
 } from '@lib/api/order';
-
+*/
 
 
 export async function POST(request: NextRequest) {
@@ -61,7 +62,7 @@ export async function POST(request: NextRequest) {
   }
 
 
-
+  /*
   const result = await getBuyOrders({
     limit: limit || 100,
     page: page || 1,
@@ -101,5 +102,24 @@ export async function POST(request: NextRequest) {
     result,
     
   });
+  */
+
+  // call api
+  // https://stable.makeup/api/order/getAllBuyOrders
+  const apiUrl = `https://stable.makeup/api/order/getAllBuyOrders`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Error fetching buy orders:", error);
+    return NextResponse.json({ error: "Failed to fetch buy orders" }, { status: 500 });
+  }
   
 }
