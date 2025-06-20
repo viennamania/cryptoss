@@ -2739,6 +2739,31 @@ const fetchBuyOrders = async () => {
                     </div>
                   </button>
 
+                  {/* 출금하기 버튼 */}
+                  <button
+                    onClick={() => {
+                      router.push('/' + params.lang + '/home/withdraw-usdt');
+                    }}
+                    className="bg-green-500 text-sm text-[#f3f4f6] px-4 py-2 rounded-lg hover:bg-green-400"
+                  >
+                    <div className="flex flex-row items-center justify-center gap-2">
+                      <Image
+                        src="/icon-withdraw-usdt.png"
+                        alt="Withdraw"
+                        width={20}
+                        height={20}
+                        className="w-5 h-5"
+                      />
+                      <span className="text-sm">
+                        출금하기
+                      </span>
+                    </div>
+                  </button>
+
+
+                  
+                  
+
 
 
 
