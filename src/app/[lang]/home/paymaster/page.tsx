@@ -1674,7 +1674,7 @@ export default function Index({ params }: any) {
 
           const order = data.result;
 
-          router.push('/' + params.lang + '/' + storecode + '/pay-usdt-reverse/' + order._id);
+          router.push('/' + params.lang + '/home/pay-usdt-reverse/' + order._id);
 
 
         } else {
