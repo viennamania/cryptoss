@@ -1606,7 +1606,7 @@ export default function Index({ params }: any) {
             orderId: order._id,
 
             buyerWalletAddress: address,
-            buyerNickname: nickname,
+            buyerNickname: user?.nickname,
             buyerAvatar: '',
             buyerMobile: '010-1234-5678',
             depositName: depositName,
@@ -1650,7 +1650,7 @@ export default function Index({ params }: any) {
             lang: params.lang,
             storecode: storecode,
             walletAddress: address,
-            nickname: nickname,
+            nickname: user?.nickname,
             usdtAmount: usdtAmount,
             krwAmount: krwAmount,
             rate: rate,
