@@ -60,7 +60,27 @@ import AppBarComponent from "@/components/Appbar/AppBar";
 import { getDictionary } from "../../../../dictionaries";
 
 
-import Chat from "@/components/Chat";
+//import Chat from "@/components/Chat";
+
+
+// dynamic import for chat
+// chat parameters is orderId and address
+import dynamic from "next/dynamic";
+
+/*
+const Chat = dynamic(() => import('@/components/Chat'), {
+    ssr: false,
+});
+*/
+
+
+
+
+
+import SendbirdProvider from "@sendbird/uikit-react/SendbirdProvider";
+import OpenChannel from '@sendbird/uikit-react/OpenChannel';
+
+
 import { add } from 'thirdweb/extensions/farcaster/keyGateway';
 
 
@@ -108,6 +128,20 @@ interface SellOrder {
 
   store: any;
 }
+
+
+
+
+const APP_ID = "CCD67D05-55A6-4CA2-A6B1-187A5B62EC9D";
+
+
+
+let Chat = dynamic(() => import('@/components/Chat'), {
+  ssr: false,
+  loading: () => <div className="w-full h-full flex items-center justify-center">Loading...</div>,
+});
+
+
 
 
 
@@ -900,7 +934,7 @@ export default function Index({ params }: any) {
 
     
 
-
+    const [seller, setSeller] = useState<any>(null);
 
     useEffect(() => {
 
@@ -939,6 +973,9 @@ export default function Index({ params }: any) {
               setAddress(data.result.orders[0]?.walletAddress);
 
               ////setNickname(data.result.orders[0].buyer.nickname);
+
+
+              setSeller(data.result.orders[0].seller);
             }
 
 
@@ -1527,6 +1564,23 @@ export default function Index({ params }: any) {
       fetchStoreInfo();
 
     }, []);
+
+
+
+  useEffect(() => {
+
+    if (!orderId || !address || !user || !seller) {
+      return;
+    }
+
+    // Dynamically load Chat component
+    Chat = dynamic(() => import('@/components/Chat'), {
+      ssr: false,
+      loading: () => <div className="w-full h-full flex items-center justify-center">Loading...</div>,
+    });
+
+
+  }, [orderId, address, user, seller]);
 
 
 
@@ -3373,22 +3427,30 @@ export default function Index({ params }: any) {
                       </div>
 
 
+                    
+                      {address && orderId && seller && (
 
-                      <div className=' w-full flex items-center justify-center mt-4
-                      bg-white shadow-lg rounded-lg p-4
-                      border border-gray-200'>
+                        <div className=' w-full flex items-center justify-center mt-4
+                        bg-white shadow-lg rounded-lg p-4
+                        border border-gray-200'>
 
-                        <Chat
+                      
+                            
+                            <Chat
 
-                          channel={orderId}
+                              channel={orderId}
 
-                          userId={ address}
+                              userId={ address}
 
-                          nickname={ user?.nickname }
+                              nickname={ user?.nickname }
 
-                          profileUrl={ user?.avatar }
-                        />
-                      </div>
+                              profileUrl={ user?.avatar }
+                            />
+                            
+                          
+                        </div>
+
+                      )}
 
 
 

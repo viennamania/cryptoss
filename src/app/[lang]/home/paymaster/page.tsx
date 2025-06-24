@@ -2014,6 +2014,50 @@ export default function Index({ params }: any) {
 
             {/* user info */}
 
+
+            {!address && (
+              <ConnectButton
+                client={client}
+                wallets={wallets}
+                chain={polygon}
+
+                
+                accountAbstraction={{
+                  chain: polygon,
+                  sponsorGas: true
+                }}
+                
+                
+                theme={"light"}
+
+                // button color is dark skyblue convert (49, 103, 180) to hex
+                connectButton={{
+                  style: {
+                    backgroundColor: "#3167b4", // dark skyblue
+
+                    color: "#f3f4f6", // gray-300 
+                    padding: "2px 2px",
+                    borderRadius: "10px",
+                    fontSize: "14px",
+                    //width: "40px",
+                    height: "38px",
+                  },
+                  label: "로그인",
+                }}
+
+                connectModal={{
+                  size: "wide", 
+                  //size: "compact",
+                  titleIcon: "https://stable.makeup/logo.png",                           
+                  showThirdwebBranding: false,
+                }}
+
+                locale={"ko_KR"}
+                //locale={"en_US"}
+              />
+
+            )}
+
             {address && (
 
               <div className="flex flex-col items-start justify-center gap-2">
@@ -2220,57 +2264,7 @@ export default function Index({ params }: any) {
 
 
 
-                  {/* if nickname is not empty, login form */}
-                  {/* 아이디, 비밀번호 입력란, 로그인 버튼 */}
-                  {!loadingUser && !user && (
-                    <div className='w-full flex flex-col gap-2 items-center justify-center'>
 
-                      {!address && (
-                        <ConnectButton
-                          client={client}
-                          wallets={wallets}
-                          chain={polygon}
-
-                          
-                          accountAbstraction={{
-                            chain: polygon,
-                            sponsorGas: true
-                          }}
-                          
-                          
-                          theme={"light"}
-
-                          // button color is dark skyblue convert (49, 103, 180) to hex
-                          connectButton={{
-                            style: {
-                              backgroundColor: "#3167b4", // dark skyblue
-
-                              color: "#f3f4f6", // gray-300 
-                              padding: "2px 2px",
-                              borderRadius: "10px",
-                              fontSize: "14px",
-                              //width: "40px",
-                              height: "38px",
-                            },
-                            label: "로그인",
-                          }}
-
-                          connectModal={{
-                            size: "wide", 
-                            //size: "compact",
-                            titleIcon: "https://stable.makeup/logo.png",                           
-                            showThirdwebBranding: false,
-                          }}
-
-                          locale={"ko_KR"}
-                          //locale={"en_US"}
-                        />
-
-                      )}
-
-
-                    </div>
-                  )}
 
 
 
@@ -2289,7 +2283,8 @@ export default function Index({ params }: any) {
 
                     {/* selected krw amount */}
 
-                    <div className='w-full flex flex-col xl:flex-row gap-5 items-center justify-center'>
+                    <div className='w-full flex flex-col  gap-5 items-center justify-center'>
+                      
                       <div className="flex flex-row gap-2 items-center justify-center">
                           <span className="text-sm text-zinc-500">
                             구매금액

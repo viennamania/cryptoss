@@ -9,6 +9,8 @@ const APP_ID = "CCD67D05-55A6-4CA2-A6B1-187A5B62EC9D";
 
 
 import SendbirdProvider from "@sendbird/uikit-react/SendbirdProvider";
+
+
 import ChannelSettings from '@sendbird/uikit-react/ChannelSettings';
 import ChatPage from '@/app/chat/page';
 import Header from '@sendbird/uikit-react/ui/Header';
