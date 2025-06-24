@@ -545,7 +545,7 @@ export default function SettingsPage({ params }: any) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    storecode: params.center,
+                    storecode: "admin",
                     walletAddress: address,
                     
     
@@ -561,8 +561,21 @@ export default function SettingsPage({ params }: any) {
 
             if (data.result) {
 
-                setUserCode(data.result.id);
-                setNickname(data.result.nickname);
+                const responseUser = await fetch("/api/user/getUser", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        storecode: "admin",
+                        walletAddress: address,
+                    }),
+                });
+
+                const dataUser = await responseUser.json();
+
+                setUserCode(dataUser.result.id);
+                setNickname(dataUser.result.nickname);
 
                 setNicknameEdit(false);
                 setEditedNickname('');
@@ -590,7 +603,7 @@ export default function SettingsPage({ params }: any) {
                 },
                 body: JSON.stringify({
                     lang: params.lang,
-                    storecode: params.center,
+                    storecode: "admin",
                     walletAddress: address,
                     
 

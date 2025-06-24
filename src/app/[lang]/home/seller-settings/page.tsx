@@ -633,33 +633,9 @@ export default function SettingsPage({ params }: any) {
   
       setApplying(true);
 
-
-      const toWalletAddress = "0x2111b6A49CbFf1C8Cc39d13250eF6bd4e1B59cF6";
-      const amount = 1;
-  
       try {
   
-  
-        /*
-          // send USDT
-          // Call the extension function to prepare the transaction
-          const transaction = transfer({
-              contract,
-              to: toWalletAddress,
-              amount: amount,
-          });
-          
-  
-          const transactionResult = await sendAndConfirmTransaction({
-              transaction: transaction,
-              
-              account: smartAccount as any,
-          });
 
-  
-          console.log(transactionResult);
-            */
-  
           await fetch('/api/user/updateSeller', {
             method: 'POST',
             headers: {
