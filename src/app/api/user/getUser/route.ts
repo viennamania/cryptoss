@@ -15,6 +15,8 @@ export async function POST(request: NextRequest) {
     walletAddress
   } = body;
 
+  //console.log("storecode", storecode);
+  //console.log("walletAddress", walletAddress);
 
   /*
   console.log("getUser storecode", storecode);
@@ -53,7 +55,11 @@ export async function POST(request: NextRequest) {
       }),
     });
     const data = await response.json();
+
+    //console.log("API response:", data);
+
     return NextResponse.json(data);
+
   } catch (error) {
     console.error("Error fetching user data:", error);
     return NextResponse.json({ error: "Failed to fetch user data" }, { status: 500 });

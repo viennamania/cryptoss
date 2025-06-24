@@ -324,12 +324,13 @@ export default function SendUsdt({ params }: any) {
 
     const getUser = async () => {
 
-      const response = await fetch('/api/user/getUserByWalletAddress', {
+      const response = await fetch('/api/user/getUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          storecode: "admin",
           walletAddress: address,
         }),
       });
@@ -713,76 +714,100 @@ export default function SendUsdt({ params }: any) {
 
       <div className="py-0 w-full ">
 
-  
-        {params.center && (
-            <div className="w-full flex flex-row items-center justify-center gap-2 bg-black/10 p-2 rounded-lg mb-4">
-                <span className="text-sm text-zinc-500">
-                {params.center}
-                </span>
-            </div>
-        )}
-
-        <div className="w-full flex flex-row gap-2 items-center justify-start text-zinc-500 text-lg"
+        <div className="w-full flex flex-row items-center justify-between gap-2 mb-4"
         >
             {/* go back button */}
-            <div className="w-full flex justify-start items-center gap-2">
+            <div className="flex justify-start items-center gap-2">
                 <button
                     onClick={() => window.history.back()}
-                    className="flex items-center justify-center bg-gray-200 rounded-full p-2">
-                    <Image
-                        src="/icon-back.png"
-                        alt="Back"
-                        width={20}
-                        height={20}
-                        className="rounded-full"
-                    />
+                    className="flex items-center justify-center
+                    p-2 bg-zinc-100 hover:bg-zinc-200 rounded-lg transition-colors duration-200"
+                >
+                    <div className='flex flex-row items-center justify-center gap-2'>
+                        <Image
+                            src="/icon-back.png"
+                            alt="Back"
+                            width={20}
+                            height={20}
+                            className="rounded-full"
+                        />
+                        <span className="text-sm text-gray-500 font-semibold">
+                            돌아가기
+                        </span>
+                    </div>
                 </button>
-                {/* title */}
-                <span className="text-sm text-gray-500 font-semibold">
-                    돌아가기
-                </span>
             </div>
 
             {!address && (
                 <ConnectButton
-                client={client}
-                wallets={wallets}
+                    client={client}
+                    wallets={wallets}
+                    chain={polygon}
 
-                /*
-                accountAbstraction={{
+                    
+                    accountAbstraction={{
                     chain: polygon,
                     sponsorGas: true
-                }}
-                */
-                
-                theme={"light"}
+                    }}
+                    
+                    
+                    theme={"light"}
 
-                // button color is dark skyblue convert (49, 103, 180) to hex
-                connectButton={{
+                    // button color is dark skyblue convert (49, 103, 180) to hex
+                    connectButton={{
                     style: {
-                    backgroundColor: "#3167b4", // dark skyblue
-                    // font color is gray-300
-                    color: "#f3f4f6", // gray-300
-                    padding: "10px 10px",
-                    borderRadius: "10px",
-                    fontSize: "16px",
-                    // w-full
-                    //width: "100%",
+                        backgroundColor: "#3167b4", // dark skyblue
+
+                        color: "#f3f4f6", // gray-300 
+                        padding: "2px 2px",
+                        borderRadius: "10px",
+                        fontSize: "14px",
+                        //width: "40px",
+                        height: "38px",
                     },
                     label: "로그인",
-                }}
+                    }}
 
-                connectModal={{
+                    connectModal={{
                     size: "wide", 
                     //size: "compact",
                     titleIcon: "https://stable.makeup/logo.png",                           
                     showThirdwebBranding: false,
-                }}
+                    }}
 
-                locale={"ko_KR"}
-                //locale={"en_US"}
+                    locale={"ko_KR"}
+                    //locale={"en_US"}
                 />
             )}
+
+
+
+        </div>
+
+        
+
+
+        <div className="flex flex-col items-start justify-center gap-4 mb-4">
+
+
+            <div className='flex flex-row items-center space-x-4'>
+
+              <div className='flex flex-row items-center space-x-2'>
+                <Image
+                  src="/logo-tether.svg"
+                  alt="USDT"
+                  width={35}
+                  height={35}
+                  className="w-6 h-6"
+                />
+              </div>
+
+              <div className="text-xl font-semibold">
+                {Withdraw_USDT}
+              </div>
+
+            </div>
+
 
             {address && (
                 <div className="w-full flex flex-col items-end justify-center gap-2">
@@ -820,30 +845,6 @@ export default function SendUsdt({ params }: any) {
                 </div>
             )}
 
-        </div>
-
-        
-
-
-        <div className="flex flex-col items-start justify-center space-y-4">
-
-            <div className='flex flex-row items-center space-x-4'>
-
-              <div className='flex flex-row items-center space-x-2'>
-                <Image
-                  src="/logo-tether.svg"
-                  alt="USDT"
-                  width={35}
-                  height={35}
-                  className="w-6 h-6"
-                />
-              </div>
-
-              <div className="text-xl font-semibold">
-                {Withdraw_USDT}
-              </div>
-
-            </div>
 
 
 
@@ -861,7 +862,10 @@ export default function SendUsdt({ params }: any) {
                   disabled={sending}
                   type="number"
                   //placeholder="Enter amount"
-                  className=" w-64 p-2 border border-gray-300 rounded text-black text-5xl font-semibold "
+                  className=" w-64 p-2 border border-gray-300 rounded text-black text-5xl font-semibold"
+
+                  // text align right
+                  style={{ textAlign: 'right' }}
                   
                   value={amount}
 
