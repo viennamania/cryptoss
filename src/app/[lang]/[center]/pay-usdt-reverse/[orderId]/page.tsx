@@ -58,12 +58,20 @@ import { useRouter }from "next//navigation";
 
 import AppBarComponent from "@/components/Appbar/AppBar";
 import { getDictionary } from "../../../../dictionaries";
-import { Pay } from 'twilio/lib/twiml/VoiceResponse';
 
 
-import Chat from "@/components/Chat";
-import { add } from 'thirdweb/extensions/farcaster/keyGateway';
+//import Chat from "@/components/Chat";
 
+
+// dynamic import for chat
+// chat parameters is orderId and address
+import dynamic from "next/dynamic";
+
+/*
+const Chat = dynamic(() => import('@/components/Chat'), {
+    ssr: false,
+});
+*/
 
 import { useSearchParams } from "next/navigation";
 
@@ -110,6 +118,16 @@ interface SellOrder {
   store: any;
 }
 
+
+
+const APP_ID = "CCD67D05-55A6-4CA2-A6B1-187A5B62EC9D";
+
+
+
+let Chat = dynamic(() => import('@/components/Chat'), {
+  ssr: false,
+  loading: () => <div className="w-full h-full flex items-center justify-center">Loading...</div>,
+});
 
 
 
@@ -901,7 +919,7 @@ export default function Index({ params }: any) {
 
     
 
-
+    const [seller, setSeller] = useState<any>(null);
 
     useEffect(() => {
 
@@ -928,7 +946,7 @@ export default function Index({ params }: any) {
   
           const data = await response?.json();
   
-          console.log('getOneBuyOrder data.result', data.result);
+          ///console.log('getOneBuyOrder data.result', data.result);
 
   
           if (data.result) {
@@ -940,6 +958,8 @@ export default function Index({ params }: any) {
               setAddress(data.result.orders[0]?.walletAddress);
 
               ////setNickname(data.result.orders[0].buyer.nickname);
+
+              setSeller(data.result.orders[0].seller);
             }
 
 
@@ -1576,10 +1596,27 @@ export default function Index({ params }: any) {
 
 
 
-    
-    return (
+  useEffect(() => {
 
-  <main className="
+    if (!orderId || !address) {
+      return;
+    }
+
+    // Dynamically load Chat component
+    Chat = dynamic(() => import('@/components/Chat'), {
+      ssr: false,
+      loading: () => <div className="w-full h-full flex items-center justify-center">Loading...</div>,
+    });
+
+
+  }, [orderId, address]);
+
+
+
+    
+  return (
+
+    <main className="
       pl-2 pr-2
       pb-10 min-h-[100vh] flex flex-col items-center justify-start container
       max-w-screen-sm
@@ -3385,7 +3422,29 @@ export default function Index({ params }: any) {
 
 
 
+                          {address && orderId && seller && (
 
+                            <div className=' w-full flex items-center justify-center mt-4
+                            bg-white shadow-lg rounded-lg p-4
+                            border border-gray-200'>
+
+                          
+                                
+                                <Chat
+
+                                  channel={orderId}
+
+                                  userId={ address}
+
+                                  nickname={ user?.nickname }
+
+                                  profileUrl={ user?.avatar }
+                                />
+                                
+                              
+                            </div>
+
+                          )}
 
 
 
@@ -3397,20 +3456,6 @@ export default function Index({ params }: any) {
 
                   </div>
 
-                  {orderId && address && user && user.nickname && buyOrders.length > 0 && buyOrders[0].status !== 'paymentConfirmed' && buyOrders[0].status !== 'ordered' && (
-                    <div className=' w-full hidden'>
-                      <Chat
-
-                        channel={orderId}
-
-                        userId={ user.nickname }
-
-                        nickname={ user.nickname }
-
-                        profileUrl={ user.avatar }
-                      />
-                    </div>
-                  )}
 
 
 
@@ -3475,9 +3520,9 @@ export default function Index({ params }: any) {
           </Modal>
 
 
-        </main>
+    </main>
 
-    );
+  );
 
 
 };
