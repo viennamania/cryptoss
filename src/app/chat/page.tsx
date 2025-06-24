@@ -349,7 +349,7 @@ function ChatPageContent() {
 
               channel={channel}
 
-              userId={ nickname }
+              userId={ address }
 
               nickname={  nickname }
 

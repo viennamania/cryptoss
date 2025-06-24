@@ -2502,61 +2502,61 @@ const fetchBuyOrders = async () => {
 
                 <div className="w-full flex flex-col xl:flex-row items-center justify-end gap-2">
 
-                  {/* 구매하기 버튼 */}
-                  {/* new window */}
 
-                  <button
-                    onClick={() => {
-                      router.push('/' + params.lang + '/home/paymaster');
-                      /*
-                      window.open(
-                        '/'+ params.lang + '/home/paymaster',
-                        '_blank'
-                      );
-                      */
-                    }}
-                    className="bg-yellow-500 text-sm text-[#f3f4f6] px-4 py-2 rounded-lg hover:bg-yellow-400"
-                  >
-                    <div className="flex flex-row items-center justify-center gap-2">
-                      <Image
-                        src="/icon-paymaster-buy.webp"
-                        alt="Buy"
-                        width={20}
-                        height={20}
-                        className="w-5 h-5"
-                      />
-                      <span className="text-sm">
-                        구매하기
-                      </span>
-                    </div>
-                  </button>
+                  <div className="flex flex-row items-center justify-center gap-2">
 
-                  {/* 출금하기 버튼 */}
-                  <button
-                    onClick={() => {
-                      router.push('/' + params.lang + '/home/withdraw-usdt');
-                    }}
-                    className="bg-green-500 text-sm text-[#f3f4f6] px-4 py-2 rounded-lg hover:bg-green-400"
-                  >
-                    <div className="flex flex-row items-center justify-center gap-2">
-                      <Image
-                        src="/icon-withdraw-usdt.png"
-                        alt="Withdraw"
-                        width={20}
-                        height={20}
-                        className="w-5 h-5"
-                      />
-                      <span className="text-sm">
-                        출금하기
-                      </span>
-                    </div>
-                  </button>
+                    {/* 구매하기 버튼 */}
+                    {/* new window */}
 
+                    <button
+                      onClick={() => {
+                        router.push('/' + params.lang + '/home/paymaster');
+                        /*
+                        window.open(
+                          '/'+ params.lang + '/home/paymaster',
+                          '_blank'
+                        );
+                        */
+                      }}
+                      className="bg-yellow-500 text-sm text-[#f3f4f6] px-4 py-2 rounded-lg hover:bg-yellow-400"
+                    >
+                      <div className="flex flex-row items-center justify-center gap-2">
+                        <Image
+                          src="/icon-paymaster-buy.webp"
+                          alt="Buy"
+                          width={20}
+                          height={20}
+                          className="w-5 h-5"
+                        />
+                        <span className="text-sm">
+                          구매하기
+                        </span>
+                      </div>
+                    </button>
 
+                    {/* 출금하기 버튼 */}
+                    <button
+                      onClick={() => {
+                        router.push('/' + params.lang + '/home/withdraw-usdt');
+                      }}
+                      className="bg-green-500 text-sm text-[#f3f4f6] px-4 py-2 rounded-lg hover:bg-green-400"
+                    >
+                      <div className="flex flex-row items-center justify-center gap-2">
+                        <Image
+                          src="/icon-withdraw-usdt.png"
+                          alt="Withdraw"
+                          width={20}
+                          height={20}
+                          className="w-5 h-5"
+                        />
+                        <span className="text-sm">
+                          출금하기
+                        </span>
+                      </div>
+                    </button>
+
+                  </div>
                   
-                  
-
-
 
 
                   {address && (
@@ -2610,12 +2610,12 @@ const fetchBuyOrders = async () => {
 
                     {/* search bar */}
                     {/* searchStorecode */}
-                    <div className="flex flex-col xl:flex-row items-center gap-2">
+                    <div className="flex flex-row items-center gap-2">
                       <input
                         type="text"
                         value={searchStorecode}
                         onChange={(e) => setSearchStorecode(e.target.value)}
-                        placeholder="가맹점 코드"
+                        placeholder="가맹점 이름"
                         className="p-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
 
@@ -2627,7 +2627,7 @@ const fetchBuyOrders = async () => {
                         //className="bg-[#3167b4] text-sm text-[#f3f4f6] px-4 py-2 rounded-lg hover:bg-[#3167b4]/80"
                         className={
                           `${fetchingBuyOrders ? 'bg-zinc-500' : 'bg-[#3167b4]'}
-                          w-32
+                          w-24
                           flex flex-row items-center justify-center gap-2
                           text-sm text-[#f3f4f6] px-4 py-2 rounded-lg hover:bg-[#3167b4]/80`
                         }
@@ -2839,7 +2839,7 @@ const fetchBuyOrders = async () => {
                           </th>
                           
                           <th className="p-2">
-                            구매금액<br/>{Buy_Amount}<br/>{Rate}
+                            구매금액(원)<br/>{Buy_Amount}(USDT)<br/>단가(환율)
                           </th>
                           {/*
                           <th className="p-2">{Payment_Amount}</th>
@@ -3147,29 +3147,46 @@ const fetchBuyOrders = async () => {
                               <div className="
                                 w-28
                                 flex flex-col gap-2 items-end justify-start">
-                                <span className="text-lg text-zinc-500 font-semibold"
-                                  style={{
-                                    fontFamily: 'monospace',
-                                  }}
-                                >
-                                  {
-                                    item.krwAmount?.toLocaleString() + ' 원'
-                                  }
-                                </span>
-                                <span className="text-lg text-green-600"
-                                  style={{
-                                    fontFamily: 'monospace',
-                                  }}
-                                >
-                                  {item.usdtAmount}{' '}USDT
-                                </span>
+
+                                <div className="flex flex-row items-center justify-end gap-1">
+                                  <span className="text-xl text-yellow-600 font-semibold"
+                                    style={{
+                                      fontFamily: 'monospace',
+                                    }}
+                                  >
+                                    {
+                                      item.krwAmount?.toLocaleString()
+                                    }
+                                  </span>
+                                  <span className="text-sm text-zinc-500">
+                                    원
+                                  </span>
+                                </div>
+
+                                <div className="flex flex-row items-center justify-end gap-2">
+                                  <Image
+                                    src="/icon-tether.png"
+                                    alt="Tether"
+                                    width={20}
+                                    height={20}
+                                    className="w-5 h-5"
+                                  />
+                                  <span className="text-xl text-green-600 font-semibold"
+                                    style={{
+                                      fontFamily: 'monospace',
+                                    }}
+                                  >
+                                    {item.usdtAmount}
+                                  </span>
+                                </div>
+
                                 <span className="text-sm text-zinc-500"
                                   style={{
                                     fontFamily: 'monospace',
                                   }}
                                 >
                                   {
-                                    Number(item.rate).toFixed(2)
+                                    Number(item.rate).toFixed(0)
                                     //Number(item.krwAmount / item.usdtAmount).toFixed(2)
                                   }
                                 </span>
@@ -3301,13 +3318,13 @@ const fetchBuyOrders = async () => {
 
                                     <div className="flex flex-row items-center justify-center gap-2">
 
-                                      <Image
-                                        src="/icon-matching-completed.png"
-                                        alt="Matching Completed"
-                                        width={20}
-                                        height={20}
-                                        className="w-5 h-5"
-                                      />
+                                    <Image
+                                      src="/icon-matching-completed.png"
+                                      alt="Matching Completed"
+                                      width={20}
+                                      height={20}
+                                      className="w-5 h-5 rounded-full"
+                                    />
                                       <span className="text-sm text-zinc-500 font-semibold">
                                         매칭완료
                                       </span>
@@ -3605,10 +3622,55 @@ const fetchBuyOrders = async () => {
 
                             {address && (
                               <td className="p-2">
+
                                 <div className="w-full flex flex-col gap-2 items-center justify-center">
     
 
+                                {item.walletAddress === address
+                                && (
+                                  item.status === 'accepted' ||
+                                  item.status === 'paymentRequested' ||
+                                  item.status === 'paymentConfirmed' ||
+                                  item.status === 'cancelled'
+                                ) && (
+
+                                  <div className="flex flex-col gap-2 items-center justify-center">
+
+                                    <button
+                                      onClick={() => {
+                                        
+                                        router.push(`/chat?channel=${item._id}`);
+
+
+                                      }}
+                                      className="w-20 h-20
+                                      flex items-center justify-center
+                                      bg-white rounded-lg shadow-md
+                                      hover:bg-gray-100
+                                      transition-all duration-200 ease-in-out
+                                      hover:scale-105
+                                      hover:shadow-lg
+                                      hover:shadow-blue-500/50
+                                      cursor-pointer
+                                      p-2
+
+                                      "
+                                    >
+                                      <Image
+                                        src="/icon-chat.png"
+                                        alt="Chat"
+                                        width={24}
+                                        height={24}
+                                      />
+                                    </button>
+
+                                  </div>
+                                )}
+
+
+
                                 {
+                                  item.walletAddress !== address &&
                                   user?.seller &&
                                   item.status === 'ordered'  && (
 
@@ -4198,14 +4260,14 @@ const fetchBuyOrders = async () => {
                                   flex flex-col gap-2 items-center justify-center">
                                   <div className="flex flex-row gap-2 items-center justify-center">
                                     <Image
-                                      src="/icon-bank-check.png"
+                                      src="/icon-payaction.png"
                                       alt="Bank Check"
                                       width={20}
                                       height={20}
-                                      className="w-5 h-5"
+                                      className="w-5 h-5 rounded-full"
                                     />
                                     <span className="text-sm font-semibold text-zinc-500">
-                                      입금 확인완료
+                                      입금완료
                                     </span>
                                   </div>
 
@@ -4220,12 +4282,17 @@ const fetchBuyOrders = async () => {
                                   </div>
 
                                   {/* paymentAmount */}
-                                  <span className="text-lg text-green-600 font-semibold"
-                                    style={{ fontFamily: 'monospace' }}>
-                                    {
-                                      item.paymentAmount?.toLocaleString()
-                                    }{' '}원
-                                  </span>
+                                  <div className="flex flex-row items-center justify-center gap-1">
+                                    <span className="text-xl text-yellow-600 font-semibold"
+                                      style={{ fontFamily: 'monospace' }}>
+                                      {
+                                        item.paymentAmount?.toLocaleString()
+                                      }
+                                    </span>
+                                    <span className="text-sm text-zinc-500">
+                                      원
+                                    </span>
+                                  </div>
                                 
 
 
