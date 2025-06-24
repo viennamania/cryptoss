@@ -100,7 +100,10 @@ export default function Chat(
     return (
         <div
             //style={{ height: "100vw", width: "100vh" }}
-            className='w-full h-[calc(80vh-4rem)]'
+            //className='w-full h-[calc(80vh-4rem)]'
+
+            className='w-full h-[calc(60vh-4rem)]'
+            //style={{ backgroundColor: "#f0f0f0" }}
         >
 
         {/*
