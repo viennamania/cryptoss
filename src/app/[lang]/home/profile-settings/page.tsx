@@ -53,7 +53,10 @@ import { getDictionary } from "../../../dictionaries";
 
 
 
-
+import {
+    useRouter,
+    useSearchParams,
+} from "next//navigation";
 
 
 
@@ -94,12 +97,9 @@ const contractAddressArbitrum = "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9"; //
 
 
 
-import {
-    useRouter,
-    useSearchParams,
-} from "next//navigation";
 
-import { N } from 'ethers';
+
+
 
 
 

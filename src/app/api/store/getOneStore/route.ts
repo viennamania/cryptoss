@@ -1,8 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+
+/*
 import {
 	getStoreByStorecode ,
 } from '@lib/api/store';
+*/
 
 
 export async function POST(request: NextRequest) {
@@ -11,7 +14,6 @@ export async function POST(request: NextRequest) {
 
   const {
     storecode,
-    walletAddress,
   } = body;
 
 
@@ -21,7 +23,7 @@ export async function POST(request: NextRequest) {
 
 
 
-
+  /*
   const result = await getStoreByStorecode({
     storecode,
   });
@@ -38,5 +40,32 @@ export async function POST(request: NextRequest) {
     result,
     
   });
+  */
+
+  // call api
+  // https://stable.makeup/api/store/getOneStore
+  const apiUrl = `https://stable.makeup/api/store/getOneStore`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        storecode,
+      }),
+    });
+    const data = await response.json();
+
+    //console.log("API response:", data);
+
+    return NextResponse.json({
+      result: data.result,
+    });
+
+  } catch (error) {
+    console.error("Error fetching store details:", error);
+    return NextResponse.json({ error: "Failed to fetch store details" }, { status: 500 });
+  }
   
 }

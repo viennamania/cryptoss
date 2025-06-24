@@ -928,7 +928,7 @@ export default function Index({ params }: any) {
   
           const data = await response?.json();
   
-          console.log('getOneBuyOrder data.result', data.result);
+          ///console.log('getOneBuyOrder data.result', data.result);
 
   
           if (data.result) {
@@ -955,7 +955,7 @@ export default function Index({ params }: any) {
         const interval = setInterval(() => {
 
           fetchBuyOrders();
-        }, 10000);
+        }, 5000);
         
         return () => clearInterval(interval);
         
@@ -1018,6 +1018,10 @@ export default function Index({ params }: any) {
     const openModal = () => setModalOpen(true);
 
 
+    const APPLICATION_ID = 'CCD67D05-55A6-4CA2-A6B1-187A5B62EC9D';
+
+    const API_TOKEN = 'e3533d34c77b439839a20c1c31de3b8b500d83c1';
+
 
     const  goChat = async (
 
@@ -1026,35 +1030,42 @@ export default function Index({ params }: any) {
     ) => {
 
 
-      const url = 'https://api-CC1B09FC-0FEF-4C9C-96D0-E5D464ADF155.sendbird.com/v3/open_channels';
+      //const url = 'https://api-CC1B09FC-0FEF-4C9C-96D0-E5D464ADF155.sendbird.com/v3/open_channels';
+
+      const url = `https://api-${APPLICATION_ID}.sendbird.com/v3/open_channels`;
 
 
+      try {
+        const result = await fetch(url, {
+          method: 'POST',
 
-      const result = await fetch(url, {
-        method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Api-Token': API_TOKEN,
+          },
 
-        headers: {
-          'Content-Type': 'application/json',
-          'Api-Token': 'd5e9911aa317c4ee9a3be4fce38b878941f11c68',
-        },
+          body: JSON.stringify({
+            name: tradeId,
+            channel_url: orderId,
+            cover_url: 'https://cryptoss.beauty/icon-trade.png',
+            custom_type: 'trade',
 
-        body: JSON.stringify({
-          name: tradeId,
-          channel_url: orderId,
-          cover_url: 'https://gold.goodtether.com/icon-trade.png',
-          custom_type: 'trade',
+          }),
+        });
 
-        }),
-      });
+        const data = await result.json();
 
-      const data = await result.json();
+        //console.log('data', data);
 
-      console.log('data', data);
+      } catch (error) {
+        console.error('Error creating chat channel:', error);
+
+      }
           
 
       console.log('Go Chat');
 
-      //router.push(`/chat?channel=${orderId}`);
+      router.push(`/chat?channel=${orderId}`);
 
       //router.push(`/${params.lang}/chat/${orderId}`);
 
@@ -1548,7 +1559,7 @@ export default function Index({ params }: any) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            storecode: params.center,
+            storecode: "admin"
           }),
         });
 
@@ -1560,7 +1571,7 @@ export default function Index({ params }: any) {
   
         const data = await response?.json();
   
-        console.log('getOneStore data', data);
+        //console.log('getOneStore data', data);
   
         if (data.result) {
           setStoreInfo(data.result);
@@ -1571,7 +1582,7 @@ export default function Index({ params }: any) {
   
       fetchStoreInfo();
 
-    }, [params.center]);
+    }, []);
 
 
 
@@ -1582,7 +1593,7 @@ export default function Index({ params }: any) {
   <main className="
       pl-2 pr-2
       pb-10 min-h-[100vh] flex flex-col items-center justify-start container
-      max-w-screen-xl
+      max-w-screen-lg
       mx-auto
       bg-zinc-50
       text-zinc-500
@@ -2274,12 +2285,13 @@ export default function Index({ params }: any) {
                   <div className="
                     w-full mb-10 grid grid-cols-1 gap-4 items-start justify-center">
 
-                      {buyOrders.map((item, index) => (
+                      {buyOrders.map((item: SellOrder, index: number) => (
 
                         <div
                           key={index}
                           className="relative flex flex-col items-center justify-center"
                         >
+
 
                           {item.status === 'ordered' && (new Date().getTime() - new Date(item.createdAt).getTime() > 1000 * 60 * 60 * 24) && (
                             <div className="absolute inset-0 flex justify-center items-center z-10
@@ -2465,6 +2477,36 @@ export default function Index({ params }: any) {
 
 
                                 </div>
+
+
+
+
+                                {/* goChat(orderId, tradeId) button */}
+                                <button
+                                  onClick={() => {
+                                    
+                                    goChat(item._id, item.tradeId);
+                                  }}
+                                  className="
+                                  ml-auto flex flex-row items-center justify-center
+                                  bg-gray-100 hover:bg-gray-200
+                                  px-4 py-2 rounded-md
+                                  text-zinc-500
+                                  transition-colors duration-200
+                                  "
+
+                                >
+                                  <Image
+                                    src="/icon-chat.png"
+                                    alt="Chat"
+                                    width={24}
+                                    height={24}
+                                  />
+                                  <span className="ml-2 text-sm">
+                                    대화하기
+                                  </span>
+                                </button>
+
         
                               </div>
 
