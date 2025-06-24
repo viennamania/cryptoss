@@ -1018,61 +1018,6 @@ export default function Index({ params }: any) {
     const openModal = () => setModalOpen(true);
 
 
-    const APPLICATION_ID = 'CCD67D05-55A6-4CA2-A6B1-187A5B62EC9D';
-
-    const API_TOKEN = 'e3533d34c77b439839a20c1c31de3b8b500d83c1';
-
-
-    const  goChat = async (
-
-      orderId: string,
-      tradeId: string
-    ) => {
-
-
-      //const url = 'https://api-CC1B09FC-0FEF-4C9C-96D0-E5D464ADF155.sendbird.com/v3/open_channels';
-
-      const url = `https://api-${APPLICATION_ID}.sendbird.com/v3/open_channels`;
-
-
-      try {
-        const result = await fetch(url, {
-          method: 'POST',
-
-          headers: {
-            'Content-Type': 'application/json',
-            'Api-Token': API_TOKEN,
-          },
-
-          body: JSON.stringify({
-            name: tradeId,
-            channel_url: orderId,
-            cover_url: 'https://cryptoss.beauty/icon-trade.png',
-            custom_type: 'trade',
-
-          }),
-        });
-
-        const data = await result.json();
-
-        //console.log('data', data);
-
-      } catch (error) {
-        console.error('Error creating chat channel:', error);
-
-      }
-          
-
-      console.log('Go Chat');
-
-      router.push(`/chat?channel=${orderId}`);
-
-      //router.push(`/${params.lang}/chat/${orderId}`);
-
-
-
-    }
-
 
     useEffect(() => {
 
@@ -2481,11 +2426,12 @@ export default function Index({ params }: any) {
 
 
 
-                                {/* goChat(orderId, tradeId) button */}
+                               
                                 <button
                                   onClick={() => {
                                     
-                                    goChat(item._id, item.tradeId);
+                                    router.push(`/chat?channel=${item._id}`)
+
                                   }}
                                   className="
                                   ml-auto flex flex-row items-center justify-center
