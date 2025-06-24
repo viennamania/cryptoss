@@ -136,6 +136,7 @@ export default function Chat(
         <SendbirdProvider
             appId={APP_ID}
             userId={userId}
+            nickname={nickname}
             profileUrl={profileUrl}
         >
 
