@@ -3639,7 +3639,8 @@ const fetchBuyOrders = async () => {
                                     <button
                                       onClick={() => {
                                         
-                                        router.push(`/chat?channel=${item._id}`);
+                                        //router.push(`/chat?channel=${item._id}`);
+                                        router.push(`/home/pay-usdt-reverse/${item._id}`);
 
 
                                       }}
