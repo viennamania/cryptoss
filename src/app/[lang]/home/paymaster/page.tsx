@@ -1961,7 +1961,10 @@ export default function Index({ params }: any) {
             <div className="flex justify-start items-center gap-2">
                 <button
                     onClick={() => window.history.back()}
-                    className="flex items-center justify-center bg-gray-200 rounded-full p-2">
+                    className="flex flex-row items-center justify-center gap-2 p-2 rounded-full hover:bg-zinc-100 transition-colors duration-200
+                    bg-white bg-opacity-50 backdrop-blur-sm shadow-md hover:shadow-lg"
+                >
+                    {/* back icon */}
                     <Image
                         src="/icon-back.png"
                         alt="Back"
@@ -1969,11 +1972,12 @@ export default function Index({ params }: any) {
                         height={20}
                         className="rounded-full"
                     />
+                    {/* title */}
+                    <span className="text-sm text-zinc-800 font-semibold">
+                        돌아가기
+                    </span>
                 </button>
-                {/* title */}
-                <span className="text-sm text-gray-500 font-semibold">
-                    돌아가기
-                </span>
+
             </div>
 
 

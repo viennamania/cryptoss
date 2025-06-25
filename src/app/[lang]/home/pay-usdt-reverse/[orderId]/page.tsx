@@ -701,7 +701,7 @@ export default function Index({ params }: any) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                storecode: params.center,
+                storecode: "admin",
                 walletAddress: address,
             }),
         })
@@ -721,7 +721,7 @@ export default function Index({ params }: any) {
 
         setLoadingUser(false);
 
-    } , [address, params.center]);
+    } , [address]);
 
 
 
@@ -1529,9 +1529,6 @@ export default function Index({ params }: any) {
     const [loadingStoreInfo, setLoadingStoreInfo] = useState(false);
     useEffect(() => {
       const fetchStoreInfo = async () => {
-        if (!params.center) {
-          return;
-        }
 
         setLoadingStoreInfo(true);
         const response = await fetch('/api/store/getOneStore', {
@@ -1625,6 +1622,36 @@ export default function Index({ params }: any) {
           </div>
         ) : (
           <div className="w-full flex flex-row items-center justify-between gap-2">
+
+
+
+            {/* go home button */}
+            <div className="flex justify-start items-center gap-2">
+                <button
+                    onClick={() => router.push('/' + params.lang + '/home')}
+                    className="flex flex-row items-center justify-center gap-2 p-2 rounded-full hover:bg-zinc-100 transition-colors duration-200
+                    bg-white bg-opacity-50 backdrop-blur-sm shadow-md hover:shadow-lg"
+                >
+
+                    <Image
+                        src="/icon-back.png"
+                        alt="Back"
+                        width={20}
+                        height={20}
+                        className="rounded-full"
+                    />
+
+                    {/* title */}
+                    <span className="text-sm text-zinc-800 font-semibold">
+                        돌아가기
+                    </span>
+
+                </button>
+
+            </div>
+
+
+
 
             <div className='flex flex-col gap-2 items-center justify-start'>
               <Image
