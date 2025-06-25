@@ -1566,7 +1566,7 @@ export default function Index({ params }: any) {
 
   useEffect(() => {
 
-    if (!orderId || !address || !user || !seller) {
+    if (!orderId || !address || !user ) {
       return;
     }
 
@@ -1577,7 +1577,7 @@ export default function Index({ params }: any) {
     });
 
 
-  }, [orderId, address, user, seller]);
+  }, [orderId, address, user]);
 
 
 

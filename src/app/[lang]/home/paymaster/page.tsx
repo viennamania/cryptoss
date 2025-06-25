@@ -1887,15 +1887,6 @@ export default function Index({ params }: any) {
   }, [address]);
 
 
-  console.log('address', address);
-
-  console.log('buyOrders', buyOrders);
-
-
-
-
-
-
 
 
 
