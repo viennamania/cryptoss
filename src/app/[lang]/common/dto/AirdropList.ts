@@ -1,0 +1,1 @@
+/Users/nevertry/Downloads/zigle/src/common/dto/AirdropList.ts
