@@ -1,1 +1,0 @@
-/Users/nevertry/Downloads/zigle/src/common/js/kip7Abi.js

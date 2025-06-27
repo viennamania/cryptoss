@@ -12,7 +12,7 @@ import Image from "next/image";
 
 import ModalUser from '@/components/modal-user';
 
-import { useRouter }from "next//navigation";
+import { useRouter } from "next/navigation";
 
 
 import { toast } from 'react-hot-toast';
