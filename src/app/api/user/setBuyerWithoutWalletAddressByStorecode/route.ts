@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+/*
 import {
   getUserByNickname,
 	insertOne,
@@ -45,7 +46,7 @@ import {
 if (!process.env.THIRDWEB_ENGINE_ACCESS_TOKEN) {
   throw new Error("THIRDWEB_ENGINE_ACCESS_TOKEN is not defined");
 }
-
+*/
 
 export async function POST(request: NextRequest) {
 
@@ -66,20 +67,13 @@ export async function POST(request: NextRequest) {
 
   //console.log("body", body);
 
+
+  /*
   const nickname = userCode;
 
   const mobile = "+821012345678";
   const password = "12345678";
 
-
-  /*
-  buyer
-  Object
-  depositBankName
-  "국민은행"
-  depositName
-  "김성종"
-  */
   const buyer = {
     depositBankName: userBankName,
     depositBankAccountNumber: userBankAccountNumber,
@@ -87,32 +81,8 @@ export async function POST(request: NextRequest) {
   };
 
 
-
+  
   try {
-
-
-    // https://store.otc.earth/Api/walletAddress?storecode=2000001&memberid=google@gmail.com
-
-    // {"result":1,"data":"0x8c1C4C15bd7e74A368E847C8278C0aB9F8182B25"}
-    
-    /*
-    const data = await fetch(`https://store.otc.earth/Api/walletAddress?storecode=${storecode}&memberid=${memberid}`);
-
-
-
-
-    const json = await data?.json();
-
-    if (!json?.data) {
-      throw new Error("No wallet address found");
-    }
-
-    const walletAddress = json?.data;
-
-
-
-    console.log("walletAddress", walletAddress);
-    */
 
 
 
@@ -230,8 +200,44 @@ export async function POST(request: NextRequest) {
     });
   }
 
+  */
 
- 
+
+
+
+
+
+
+  // call api
+  // https://stable.makeup/api/user/getUser
+
+  const apiUrl = `https://stable.makeup/api/user/setBuyerWithoutWalletAddressByStorecode`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        storecode,
+        walletAddress,
+        userCode,
+        userName,
+        userBankName,
+        userBankAccountNumber,
+        userType,
+      }),
+    });
+    const data = await response.json();
+
+    //console.log("API response:", data);
+
+    return NextResponse.json(data);
+
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return NextResponse.json({ error: "Failed to fetch user data" }, { status: 500 });
+  }
 
   
 }
