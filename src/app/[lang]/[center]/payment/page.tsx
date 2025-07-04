@@ -2561,6 +2561,7 @@ export default function Index({ params }: any) {
 
                     <div className='w-full flex flex-col gap-2 items-center justify-start'>
                       {/* user?.buyOrderStatus */}
+                      {/*
                       <div className='flex flex-row gap-2 items-center justify-center'>
                         <span className="text-sm text-zinc-500">
                           상태:
@@ -2569,19 +2570,28 @@ export default function Index({ params }: any) {
                           {user?.buyOrderStatus}
                         </span>
                       </div>
+                      */}
 
 
-                      {/*
+                      
                       {
                       user && user?.buyOrderStatus === 'ordered'
                       || user?.buyOrderStatus === 'paymentRequested' ? (
                         <div className='flex flex-row gap-2 items-center justify-center'>
-                          <span className="text-sm text-zinc-500">
-                            현재 구매 주문이 진행 중입니다.
+                          <Image
+                            src="/icon-info.png"
+                            alt="Info"
+                            width={16}
+                            height={16}
+                            className="rounded-full w-4 h-4"
+                          />
+                          <span className="text-lg text-zinc-500 font-semibold">
+                            {user?.buyOrderStatus === 'ordered' ? '구매 주문이 진행 중입니다.' : '결제 요청이 진행 중입니다.'}
                           </span>
+
                         </div>
                       ) : (
-                      */}
+                      
 
                         <div className='flex flex-col gap-2 items-center justify-center'>
 
@@ -2950,9 +2960,9 @@ export default function Index({ params }: any) {
 
                         </div>
 
-                      {/*
+                      
                       )}
-                      */}
+                      
 
                     </div>
                   )}
