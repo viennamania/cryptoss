@@ -3422,7 +3422,7 @@ export default function Index({ params }: any) {
 
 
 
-                          {address && orderId && seller && (
+                          {/*address && orderId && seller && (
 
                             <div className=' w-full flex items-center justify-center mt-4
                             bg-white shadow-lg rounded-lg p-4
@@ -3444,7 +3444,7 @@ export default function Index({ params }: any) {
                               
                             </div>
 
-                          )}
+                          )*/}
 
 
 

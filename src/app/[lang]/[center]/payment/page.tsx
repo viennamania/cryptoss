@@ -980,6 +980,8 @@ export default function Index({ params }: any) {
           nickname: storeUser,
           avatar: '',
           mobile: mobile,
+
+          buyOrderStatus: data.buyOrderStatus,
         });
 
 
@@ -2558,378 +2560,399 @@ export default function Index({ params }: any) {
                   {orderId === '0' && (
 
                     <div className='w-full flex flex-col gap-2 items-center justify-start'>
-
-
-
-                      {/* usdtAmount */}
-                      {/* 구매수량 */}
-                      <div className="flex flex-row gap-2 items-center justify-center
-                        border-b-2 border-zinc-200 border-opacity-50
-                        pb-2 mb-2
-                        ">
-                          <span className="text-sm text-zinc-500">
-                            구매수량
-                          </span>
-                          <Image
-                            src="/logo-tether.png"
-                            alt="USDT"
-                            width={24}
-                            height={24}
-                            className="rounded-full w-6 h-6"
-                          />
-
-                          <div className="text-2xl font-semibold text-zinc-500">
-                            {
-                              (selectedKrwAmount / rate)?.toLocaleString('us-US', {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              })  
-                            } USDT
-                          </div>
-                      </div>
-
-                      {/* 구매한 수량은 자동으로 가맹점 결제에 반영됩니다. */}
+                      {/* user?.buyOrderStatus */}
                       <div className='flex flex-row gap-2 items-center justify-center'>
-                        <Image
-                          src="/icon-info.png"
-                          alt="Info"
-                          width={16}
-                          height={16}
-                          className="rounded-full w-4 h-4"
-                        />
                         <span className="text-sm text-zinc-500">
-                          구매한 수량은 자동으로 가맹점 결제에 반영됩니다.
+                          상태:
+                        </span>
+                        <span className="text-sm text-zinc-500 font-semibold">
+                          {user?.buyOrderStatus}
                         </span>
                       </div>
 
-                      {/* selected krw amount */}
 
-                  
-
-                      <div className="flex flex-col xl:flex-row gap-2 items-center justify-center
-                        border-b-2 border-zinc-200 border-opacity-50
-                        pb-2 mb-2
-                        ">
-                        <div className="flex flex-row gap-2 items-center justify-center">
-                            <span className="text-sm text-zinc-500">
-                              구매금액
-                            </span>
-                            <div className="text-2xl font-semibold text-zinc-500">
-                              {
-                                selectedKrwAmount?.toLocaleString('ko-KR')
-                              } 원
-                            </div>
-
-
-                            {/* reset button */}
-                            {(!depositAmountKrw || depositAmountKrw === "0") && (
-
-                              <button
-                                onClick={() => setSelectedKrwAmount(0)}
-                                className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
-                                  }
-                                  text-sm text-zinc-100
-                                  px-4 py-2 rounded-md border border-zinc-100
-                                  hover:bg-[#f472b6] hover:text-zinc-50
-                                  `}
-                                disabled={loadingStoreInfo}
-                              >
-                                초기화
-                              </button>
-                            )}
-
+                      {/*
+                      {
+                      user && user?.buyOrderStatus === 'ordered'
+                      || user?.buyOrderStatus === 'paymentRequested' ? (
+                        <div className='flex flex-row gap-2 items-center justify-center'>
+                          <span className="text-sm text-zinc-500">
+                            현재 구매 주문이 진행 중입니다.
+                          </span>
                         </div>
+                      ) : (
+                      */}
 
-                        {/* 시세 */}
-                        <div className="flex flex-row gap-2 items-center justify-center">
- 
+                        <div className='flex flex-col gap-2 items-center justify-center'>
+
+
+                          <div className="flex flex-row gap-2 items-center justify-center
+                            border-b-2 border-zinc-200 border-opacity-50
+                            pb-2 mb-2
+                            ">
+                              <span className="text-sm text-zinc-500">
+                                구매수량
+                              </span>
+                              <Image
+                                src="/logo-tether.png"
+                                alt="USDT"
+                                width={24}
+                                height={24}
+                                className="rounded-full w-6 h-6"
+                              />
+
+                              <div className="text-2xl font-semibold text-zinc-500">
+                                {
+                                  (selectedKrwAmount / rate)?.toLocaleString('us-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  })  
+                                } USDT
+                              </div>
+                          </div>
+
+                          <div className='flex flex-row gap-2 items-center justify-center'>
+                            <Image
+                              src="/icon-info.png"
+                              alt="Info"
+                              width={16}
+                              height={16}
+                              className="rounded-full w-4 h-4"
+                            />
                             <span className="text-sm text-zinc-500">
-                              시세
+                              구매한 수량은 자동으로 가맹점 결제에 반영됩니다.
                             </span>
-                            <div className="text-2xl font-semibold text-zinc-500">
-                              {
-                                rate?.toLocaleString('ko-KR')
-                              } 원
+                          </div>
+
+                          <div className="flex flex-col xl:flex-row gap-2 items-center justify-center
+                            border-b-2 border-zinc-200 border-opacity-50
+                            pb-2 mb-2
+                            ">
+                            <div className="flex flex-row gap-2 items-center justify-center">
+                                <span className="text-sm text-zinc-500">
+                                  구매금액
+                                </span>
+                                <div className="text-2xl font-semibold text-zinc-500">
+                                  {
+                                    selectedKrwAmount?.toLocaleString('ko-KR')
+                                  } 원
+                                </div>
+
+
+                                {/* reset button */}
+                                {(!depositAmountKrw || depositAmountKrw === "0") && (
+
+                                  <button
+                                    onClick={() => setSelectedKrwAmount(0)}
+                                    className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
+                                      }
+                                      text-sm text-zinc-100
+                                      px-4 py-2 rounded-md border border-zinc-100
+                                      hover:bg-[#f472b6] hover:text-zinc-50
+                                      `}
+                                    disabled={loadingStoreInfo}
+                                  >
+                                    초기화
+                                  </button>
+                                )}
+
                             </div>
 
-                           {/* new window for upbit site */}
-                            <a
-                              href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-USDT"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex flex-row gap-2 items-center justify-center"
-                            >
-                              <div className='flex flex-row gap-2 items-center justify-center'>
+                            {/* 시세 */}
+                            <div className="flex flex-row gap-2 items-center justify-center">
+    
                                 <span className="text-sm text-zinc-500">
-                                  시세제공
+                                  시세
                                 </span>
-                                <Image
-                                  src="/logo-upbit.jpg"
-                                  alt="upbit"
-                                  width={100}
-                                  height={100}
-                                  className="rounded-full w-12 h-12"
+                                <div className="text-2xl font-semibold text-zinc-500">
+                                  {
+                                    rate?.toLocaleString('ko-KR')
+                                  } 원
+                                </div>
+
+                              {/* new window for upbit site */}
+                                <a
+                                  href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-USDT"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex flex-row gap-2 items-center justify-center"
+                                >
+                                  <div className='flex flex-row gap-2 items-center justify-center'>
+                                    <span className="text-sm text-zinc-500">
+                                      시세제공
+                                    </span>
+                                    <Image
+                                      src="/logo-upbit.jpg"
+                                      alt="upbit"
+                                      width={100}
+                                      height={100}
+                                      className="rounded-full w-12 h-12"
+                                    />
+                                  </div>
+                                </a>
+
+
+                            </div>
+
+
+
+                          </div>
+
+
+
+                          {(!depositAmountKrw || depositAmountKrw === "0") && (
+
+                            <div className="mt-4 grid grid-cols-2 xl:grid-cols-3 gap-4 w-full text-sm text-zinc-200">
+
+
+
+                                {/* when mouse over, background color is green */}
+
+                                <button
+                                  onClick={() => setSelectedKrwAmount(
+                                    selectedKrwAmount + 5000
+                                  )}
+                                  className={`${loadingStoreInfo ? 'bg-zinc-800' : 'bg-green-500'
+                                  }
+                                    text-lg text-zinc-100
+                                    px-4 py-2 rounded-md border border-zinc-100
+                                    hover:bg-[#f472b6] hover:text-zinc-50
+                                    `}
+                                  disabled={loadingStoreInfo}
+                                >
+                                  5,000원
+                                </button>
+
+
+                                <button
+                                  onClick={() => setSelectedKrwAmount(
+                                    selectedKrwAmount + 10000
+                                  )}
+                                  className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
+                                  }
+                                    text-lg text-zinc-100
+                                    px-4 py-2 rounded-md border border-zinc-100
+                                    hover:bg-[#f472b6] hover:text-zinc-50
+                                    `}
+                                >
+                                  10,000원
+                                </button>
+
+                                <button
+                                  onClick={() => setSelectedKrwAmount(
+                                    selectedKrwAmount + 50000
+                                  )}
+                                  className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
+                                  }
+                                    text-lg text-zinc-100
+                                    px-4 py-2 rounded-md border border-zinc-100
+                                    hover:bg-[#f472b6] hover:text-zinc-50
+                                    `}
+                                >
+                                  50,000원
+                                </button>
+
+                                <button
+                                  onClick={() => setSelectedKrwAmount(
+                                    selectedKrwAmount + 100000
+                                  )}
+                                  className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
+                                  }
+                                    text-lg text-zinc-100
+                                    px-4 py-2 rounded-md border border-zinc-100
+                                    hover:bg-[#f472b6] hover:text-zinc-50
+                                    `}
+                                >
+                                  100,000원
+                                </button>
+
+                                <button
+                                  onClick={() => setSelectedKrwAmount(
+                                    selectedKrwAmount + 500000
+                                  )}
+                                  className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
+                                  }
+                                    text-lg text-zinc-100
+                                    px-4 py-2 rounded-md border border-zinc-100
+                                    hover:bg-[#f472b6] hover:text-zinc-50
+                                    `}
+                                >
+                                  500,000원
+                                </button>
+
+                                <button
+                                  onClick={() => setSelectedKrwAmount(
+                                    selectedKrwAmount + 1000000
+                                  )}
+                                  className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
+                                  }
+                                    text-lg text-zinc-100
+                                    px-4 py-2 rounded-md border border-zinc-100
+                                    hover:bg-[#f472b6] hover:text-zinc-50
+                                    `}
+                                >
+                                  1,000,000원
+                                </button>
+
+
+                            </div>
+
+                          )}
+
+
+                          <div className='mt-5 flex flex-col xl:flex-row gap-2 items-center justify-center'>
+
+                            <div className="felex flex-col gap-2 items-center justify-center">
+
+                              {/* deposit bank name */}
+                              <div className='flex flex-row gap-2 items-center justify-center'>
+                                <span className="w-24 text-sm text-zinc-500">
+                                  입금자은행명
+                                </span>
+                                <input
+                                  //disabled={!address || !selectedKrwAmount || acceptingSellOrderRandom}
+                                  disabled={true}
+                                  type="text"
+                                  value={depositBankName || ''}
+                                  onChange={(e) => setDepositBankName(e.target.value)}
+                                  placeholder="입금자은행명"
+                                  className=" text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
                                 />
                               </div>
-                            </a>
 
 
-                        </div>
-
-
-
-                      </div>
-
-
-
-                      {(!depositAmountKrw || depositAmountKrw === "0") && (
-
-                        <div className="mt-4 grid grid-cols-2 xl:grid-cols-3 gap-4 w-full text-sm text-zinc-200">
-
-
-
-                            {/* when mouse over, background color is green */}
-
-                            <button
-                              onClick={() => setSelectedKrwAmount(
-                                selectedKrwAmount + 5000
-                              )}
-                              className={`${loadingStoreInfo ? 'bg-zinc-800' : 'bg-green-500'
-                              }
-                                text-lg text-zinc-100
-                                px-4 py-2 rounded-md border border-zinc-100
-                                hover:bg-[#f472b6] hover:text-zinc-50
-                                `}
-                              disabled={loadingStoreInfo}
-                            >
-                              5,000원
-                            </button>
-
-
-                            <button
-                              onClick={() => setSelectedKrwAmount(
-                                selectedKrwAmount + 10000
-                              )}
-                              className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
-                              }
-                                text-lg text-zinc-100
-                                px-4 py-2 rounded-md border border-zinc-100
-                                hover:bg-[#f472b6] hover:text-zinc-50
-                                `}
-                            >
-                              10,000원
-                            </button>
-
-                            <button
-                              onClick={() => setSelectedKrwAmount(
-                                selectedKrwAmount + 50000
-                              )}
-                              className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
-                              }
-                                text-lg text-zinc-100
-                                px-4 py-2 rounded-md border border-zinc-100
-                                hover:bg-[#f472b6] hover:text-zinc-50
-                                `}
-                            >
-                              50,000원
-                            </button>
-
-                            <button
-                              onClick={() => setSelectedKrwAmount(
-                                selectedKrwAmount + 100000
-                              )}
-                              className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
-                              }
-                                text-lg text-zinc-100
-                                px-4 py-2 rounded-md border border-zinc-100
-                                hover:bg-[#f472b6] hover:text-zinc-50
-                                `}
-                            >
-                              100,000원
-                            </button>
-
-                            <button
-                              onClick={() => setSelectedKrwAmount(
-                                selectedKrwAmount + 500000
-                              )}
-                              className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
-                              }
-                                text-lg text-zinc-100
-                                px-4 py-2 rounded-md border border-zinc-100
-                                hover:bg-[#f472b6] hover:text-zinc-50
-                                `}
-                            >
-                              500,000원
-                            </button>
-
-                            <button
-                              onClick={() => setSelectedKrwAmount(
-                                selectedKrwAmount + 1000000
-                              )}
-                              className={`${loadingStoreInfo ? 'bg-[#f472b6]' : 'bg-green-500'
-                              }
-                                text-lg text-zinc-100
-                                px-4 py-2 rounded-md border border-zinc-100
-                                hover:bg-[#f472b6] hover:text-zinc-50
-                                `}
-                            >
-                              1,000,000원
-                            </button>
-
-
-                        </div>
-
-                      )}
-
-
-                      <div className='mt-5 flex flex-col xl:flex-row gap-2 items-center justify-center'>
-
-                        <div className="felex flex-col gap-2 items-center justify-center">
-
-                          {/* deposit bank name */}
-                          <div className='flex flex-row gap-2 items-center justify-center'>
-                            <span className="w-24 text-sm text-zinc-500">
-                              입금자은행명
-                            </span>
-                            <input
-                              //disabled={!address || !selectedKrwAmount || acceptingSellOrderRandom}
-                              disabled={true}
-                              type="text"
-                              value={depositBankName || ''}
-                              onChange={(e) => setDepositBankName(e.target.value)}
-                              placeholder="입금자은행명"
-                              className=" text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
-                            />
-                          </div>
-
-
-                          {/* deposit bank account number */}
-                          <div className='mt-2 flex flex-row gap-2 items-center justify-center'>
-                            <span className=" w-24 text-sm text-zinc-500">
-                              입금자계좌번호
-                            </span>
-                            <input
-                              //disabled={!address || !selectedKrwAmount || acceptingSellOrderRandom}
-                              disabled={true}
-                              type="text"
-                              value={depositBankAccountNumber || ''}
-                              onChange={(e) => setDepositBankAccountNumber(e.target.value)}
-                              placeholder="입금자계좌번호"
-                              className=" text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
-                            />
-                          </div>
-
-                          
-
-
-                          {/* input deposit name */}
-                          <div className='mt-2 flex flex-row gap-2 items-center justify-center'>
-                            
-                            <span className=" w-24 text-sm text-zinc-500">
-                              입금자명
-                            </span>
-
-                            <input
-                              //disabled={!address || !selectedKrwAmount || acceptingSellOrderRandom}
-                              disabled={true}
-                              type="text"
-                              value={depositName || ''}
-                              onChange={(e) => setDepositName(e.target.value)}
-                              placeholder={Deposit_Name}
-                              className=" text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
-                            />
-                          </div>
-
-
-                        </div>
-                        
-
-
-
-                        <button
-                          disabled={!address || !user || !selectedKrwAmount || acceptingSellOrderRandom}
-                          className={`
-                          ${!user || !selectedKrwAmount || acceptingSellOrderRandom ? 'bg-zinc-200' : 'bg-[#f472b6]'
-                          }
-                            w-full
-                            text-lg text-zinc-50 px-4 py-2 rounded-md border border-zinc-100
-                            hover:bg-[#f472b6] hover:text-zinc-50
-                            `}
-
-                          onClick={() => {
-
-                              // check deposit name is empty
-                              if (!depositName) {
-                                toast.error(Please_enter_deposit_name);
-                                return;
-                              }
-
-                              acceptSellOrderRandom(
-                                selectedKrwAmount,
-                                depositName,
-                                depositBankName || '',
-                                depositBankAccountNumber || ''
-                              );
-                        
-
-                          }}
-                        >
-                          <div className="flex flex-row items-center justify-center gap-2">
-                            {/* loaaing icon */}
-                            {acceptingSellOrderRandom ? (
-                              <Image
-                                src="/loading.png"
-                                alt="Loading"
-                                width={24}
-                                height={24}
-                                className='animate-spin'
-                              />
-                            ) : (
-                              <Image
-                                src="/icon-buy.webp"
-                                alt="Check"
-                                width={24}
-                                height={24}
-                              />
-                            )}
-                          
-                            <div className="flex flex-row items-center justify-center gap-2">
-                              {acceptingSellOrderRandom ? (
-                                <span className="text-sm text-zinc-800">
-                                  {/* 구매주문 중입니다. */}
-                                  구매주문 중입니다.
+                              {/* deposit bank account number */}
+                              <div className='mt-2 flex flex-row gap-2 items-center justify-center'>
+                                <span className=" w-24 text-sm text-zinc-500">
+                                  입금자계좌번호
                                 </span>
-                              ) : (
-                                <span className="text-sm text-zinc-800
-                                  hover:underline
-                                  hover:text-zinc-50
-                                  ">
-                                  구매하기
+                                <input
+                                  //disabled={!address || !selectedKrwAmount || acceptingSellOrderRandom}
+                                  disabled={true}
+                                  type="text"
+                                  value={depositBankAccountNumber || ''}
+                                  onChange={(e) => setDepositBankAccountNumber(e.target.value)}
+                                  placeholder="입금자계좌번호"
+                                  className=" text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
+                                />
+                              </div>
+
+                              
+
+
+                              {/* input deposit name */}
+                              <div className='mt-2 flex flex-row gap-2 items-center justify-center'>
+                                
+                                <span className=" w-24 text-sm text-zinc-500">
+                                  입금자명
                                 </span>
-                              )}
+
+                                <input
+                                  //disabled={!address || !selectedKrwAmount || acceptingSellOrderRandom}
+                                  disabled={true}
+                                  type="text"
+                                  value={depositName || ''}
+                                  onChange={(e) => setDepositName(e.target.value)}
+                                  placeholder={Deposit_Name}
+                                  className=" text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
+                                />
+                              </div>
+
+
                             </div>
+                            
+
+
+
+                            <button
+                              disabled={!address || !user || !selectedKrwAmount || acceptingSellOrderRandom}
+                              className={`
+                              ${!user || !selectedKrwAmount || acceptingSellOrderRandom ? 'bg-zinc-200' : 'bg-[#f472b6]'
+                              }
+                                w-full
+                                text-lg text-zinc-50 px-4 py-2 rounded-md border border-zinc-100
+                                hover:bg-[#f472b6] hover:text-zinc-50
+                                `}
+
+                              onClick={() => {
+
+                                  // check deposit name is empty
+                                  if (!depositName) {
+                                    toast.error(Please_enter_deposit_name);
+                                    return;
+                                  }
+
+                                  acceptSellOrderRandom(
+                                    selectedKrwAmount,
+                                    depositName,
+                                    depositBankName || '',
+                                    depositBankAccountNumber || ''
+                                  );
+                            
+
+                              }}
+                            >
+                              <div className="flex flex-row items-center justify-center gap-2">
+                                {/* loaaing icon */}
+                                {acceptingSellOrderRandom ? (
+                                  <Image
+                                    src="/loading.png"
+                                    alt="Loading"
+                                    width={24}
+                                    height={24}
+                                    className='animate-spin'
+                                  />
+                                ) : (
+                                  <Image
+                                    src="/icon-buy.webp"
+                                    alt="Check"
+                                    width={24}
+                                    height={24}
+                                  />
+                                )}
+                              
+                                <div className="flex flex-row items-center justify-center gap-2">
+                                  {acceptingSellOrderRandom ? (
+                                    <span className="text-sm text-zinc-800">
+                                      {/* 구매주문 중입니다. */}
+                                      구매주문 중입니다.
+                                    </span>
+                                  ) : (
+                                    <span className="text-sm text-zinc-800
+                                      hover:underline
+                                      hover:text-zinc-50
+                                      ">
+                                      구매하기
+                                    </span>
+                                  )}
+                                </div>
+
+                              </div>
+
+                            </button>
 
                           </div>
 
-                        </button>
 
-                      </div>
+                          <div className='
+                            mt-2 w-full flex flex-row items-center justify-start gap-2
+                            '>
+                            <Image
+                              src="/icon-info.png"
+                              alt="Info"
+                              width={24}
+                              height={24}
+                            />
+                            <span className="text-sm text-zinc-500">
+                              입금 시 반드시 사전 등록한 은행과 이름, 계좌번호로 송금해야 합니다. 이와 다를 시에는 입금 처리가 안될 수 있습니다.
+                            </span>
+                          </div>
 
-                      {/* deposit name description */}
-                      <div className='
-                        mt-2 w-full flex flex-row items-center justify-start gap-2
-                        '>
-                        <Image
-                          src="/icon-info.png"
-                          alt="Info"
-                          width={24}
-                          height={24}
-                        />
-                        <span className="text-sm text-zinc-500">
-                          입금 시 반드시 사전 등록한 은행과 이름, 계좌번호로 송금해야 합니다. 이와 다를 시에는 입금 처리가 안될 수 있습니다.
-                        </span>
-                      </div>
+                        </div>
 
+                      {/*
+                      )}
+                      */}
 
                     </div>
                   )}
