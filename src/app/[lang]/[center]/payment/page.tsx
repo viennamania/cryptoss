@@ -2581,9 +2581,9 @@ export default function Index({ params }: any) {
                           <Image
                             src="/icon-info.png"
                             alt="Info"
-                            width={16}
-                            height={16}
-                            className="rounded-full w-4 h-4"
+                            width={20}
+                            height={20}
+                            className="w-6 h-6"
                           />
                           <span className="text-lg text-zinc-500 font-semibold">
                             {user?.buyOrderStatus === 'ordered' ? '구매 주문이 진행 중입니다.' : '결제 요청이 진행 중입니다.'}
