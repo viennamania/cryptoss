@@ -108,13 +108,20 @@ export async function POST(request: NextRequest) {
   // https://stable.makeup/api/order/getAllBuyOrders
   const apiUrl = `https://stable.makeup/api/order/getAllBuyOrders`;
   try {
+    const requestBody = JSON.stringify(body);
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(requestBody, 'utf8').toString(),
       },
-      body: JSON.stringify(body),
+      body: requestBody,
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {

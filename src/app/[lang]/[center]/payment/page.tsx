@@ -2057,10 +2057,7 @@ export default function Index({ params }: any) {
           toast.error('구매 주문에 실패했습니다');
         }
 
-
-
       }
-
 
 
     } else {
