@@ -1776,22 +1776,31 @@ export default function Index({ params }: any) {
 
     try {
       setUserLogin(true);
-      const response = await fetch('/api/user/userLogin', {
+      const response = await fetch('/api/user/loginUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           storecode: storecode,
-          nickname: nickname,
-          mobile: mobile,
+          memberid: memberid,
           password: userPassword,
         }),
       });
       const data = await response?.json();
       console.log('userLogin data', data);
-      if (data.walletAddress) {
-        setAddress(data.walletAddress);
+
+      if (data.user) {
+        
+        setAddress(data.user.walletAddress);
+
+        setNickname(data.user.nickname);
+
+        setDepositBankName(data.user.depositBankName || paramDepositBankName);
+        setDepositBankAccountNumber(data.user.depositBankAccountNumber || paramDepositBankAccountNumber);
+        setDepositName(data.user.depositName || paramDepositName);
+
+        setUser(data.user);
 
         toast.success('로그인 성공');
       } else {
@@ -1806,13 +1815,17 @@ export default function Index({ params }: any) {
     }
   }
 
+
+
+
+
     
   return (
 
     <main className="
       pl-2 pr-2
       pb-10 min-h-[100vh] flex flex-col items-center justify-start container
-      max-w-screen-lg
+      max-w-screen-sm
       mx-auto
       bg-zinc-50
       text-zinc-500
@@ -1857,7 +1870,8 @@ export default function Index({ params }: any) {
                 className='rounded-full w-10 h-10'
               />
               <span className="text-sm text-zinc-100 font-semibold">
-                {storeInfo?.storeName}
+                {/*storeInfo?.storeName*/}
+                {storeInfo?.storeDescription || '가맹점'}
               </span>
             </div>
 
@@ -2063,7 +2077,8 @@ export default function Index({ params }: any) {
                         </span>
                       </div>
 
-                      <div className='mt-5 flex flex-col xl:flex-row gap-2 items-center justify-center'>
+                      <div className='mt-5 flex flex-col gap-2 items-center justify-center'>
+
                         <div className='flex flex-col gap-2 items-center justify-center'>
                           <span className="text-sm text-zinc-500">
                             아아디는 5-10자 영문, 숫자 조합으로 입력해주세요.
@@ -2089,7 +2104,7 @@ export default function Index({ params }: any) {
                           </span>
 
                           <input
-                            type="password"
+                            type="text"
                             value={userPassword || ''}
                             onChange={(e) => setUserPassword(e.target.value)}
                             placeholder="비밀번호"
@@ -2114,8 +2129,7 @@ export default function Index({ params }: any) {
                             || userLogining
                           }
                           className={`${loadingStoreInfo || !memberid || !userPassword || userLogining
-                            ? 'bg-[#f472b6]'
-                            : 'bg-black'
+                            ? 'bg-zinc-800 cursor-not-allowed' : 'bg-black'
                             
                           }
                             text-sm text-zinc-100
