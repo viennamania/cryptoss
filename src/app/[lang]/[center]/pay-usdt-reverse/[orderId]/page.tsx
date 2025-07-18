@@ -1665,7 +1665,8 @@ export default function Index({ params }: any) {
                   rounded-full'
               />
               <span className="text-sm text-zinc-100 font-semibold">
-                {storeInfo?.storeName}
+                {/*storeInfo?.storeName*/}
+                {storeInfo?.storeDescription || '가맹점'}
               </span>
             </div>
 

@@ -2251,9 +2251,13 @@ export default function Index({ params }: any) {
                 height={38}
                 className='rounded-full w-10 h-10'
               />
+              
               <span className="text-sm text-zinc-100 font-semibold">
-                {storeInfo?.storeName}
+                {/*storeInfo?.storeName*/}
+                {storeInfo?.storeDescription || '가맹점'}
               </span>
+
+
             </div>
 
             {loadingUser && (
