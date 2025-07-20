@@ -63,9 +63,7 @@ export async function POST(request: NextRequest) {
   */
 
   // call api
-  // https://stable.makeup/api/user/getUser
-
-  const apiUrl = `https://stable.makeup/api/user/loginUser`;
+  const apiUrl = `${process.env.STABLE_API_URL}/api/user/loginUser`;
 
   try {
     const response = await fetch(apiUrl, {
