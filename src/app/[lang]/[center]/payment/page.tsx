@@ -270,6 +270,9 @@ export default function Index({ params }: any) {
     const paramDepositAmountKrw = searchParams.get('depositAmountKrw');
 
 
+
+
+
     useEffect(() => {
       // Dynamically load the Binance widget script
       const script = document.createElement("script");
@@ -818,10 +821,20 @@ export default function Index({ params }: any) {
 
    useEffect(() => {
       if (paramDepositAmountKrw) {
-        setSelectedKrwAmount(Number(paramDepositAmountKrw));
+
+        // if paramDepositAmountKrw is more than 3000000, then set to 3000000
+        if (Number(paramDepositAmountKrw) > 3000000) {
+          setSelectedKrwAmount(3000000);
+        } else if (Number(paramDepositAmountKrw) < 10000) {
+          setSelectedKrwAmount(10000);
+        } else {
+          setSelectedKrwAmount(Number(paramDepositAmountKrw));
+        }
+
       } else {
         setSelectedKrwAmount(0);
       }
+
    }, [paramDepositAmountKrw]);
 
 
