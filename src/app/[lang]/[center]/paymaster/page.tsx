@@ -1539,6 +1539,14 @@ export default function Index({ params }: any) {
       return;
     }
 
+
+    // if krwAmount is more than 3000000, then set to 3000000, then alert user to select another amount
+    if (krwAmount > 3000000) {
+      toast.error('구매 금액은 3000000원 이하로 선택해주세요');
+      return;
+    }
+
+
     setAcceptingSellOrderRandom(true);
 
 
@@ -2333,7 +2341,7 @@ export default function Index({ params }: any) {
                             value={depositBankName || ''}
                             onChange={(e) => setDepositBankName(e.target.value)}
                             placeholder="입금자은행명"
-                            className=" text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
+                            className="w-40 text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
                           />
                         </div>
 
@@ -2350,7 +2358,7 @@ export default function Index({ params }: any) {
                             value={depositBankAccountNumber || ''}
                             onChange={(e) => setDepositBankAccountNumber(e.target.value)}
                             placeholder="입금자계좌번호"
-                            className=" text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
+                            className="w-40 text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
                           />
                         </div>
 
@@ -2371,7 +2379,7 @@ export default function Index({ params }: any) {
                             value={depositName || ''}
                             onChange={(e) => setDepositName(e.target.value)}
                             placeholder="입금자명"
-                            className=" text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
+                            className="w-40  text-sm font-semibold bg-zinc-200 text-zinc-600 px-4 py-2 rounded-md border border-zinc-100"
                           />
                         </div>
 
