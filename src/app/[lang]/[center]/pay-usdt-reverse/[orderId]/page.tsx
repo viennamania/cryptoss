@@ -1711,21 +1711,7 @@ export default function Index({ params }: any) {
                   <button
                     onClick={() => {
 
-                      //navigator.clipboard.writeText(address);
-
-                      // if iframe, then clipboard copy does not work
-                      if (typeof window !== 'undefined' && window.navigator.clipboard) {
-                        navigator.clipboard.writeText(address);
-                      } else {
-                        // fallback for older browsers
-                        const textArea = document.createElement('textarea');
-                        textArea.value = address;
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(textArea);
-                      }
- 
+                      navigator.clipboard.writeText(address);
 
                       toast.success("USDT통장번호가 복사되었습니다.");
                     }}
